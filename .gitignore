@@ -3,3 +3,20 @@
 ################################################################################
 
 /Phonebook.Data/packages
+/Phonebook.Data/.vs/Phonebook.Data/v14
+/.vs
+/Phonebook.Data/Phonebook.Data/bin/Debug
+/Phonebook.Data/Phonebook.Data/obj
+/Phonebook.Data/Phonebook.Data.Tests/bin/Debug
+/Phonebook.Data/Phonebook.Data.Tests/obj
+/Phonebook.Domain/.vs/Phonebook.Domain/v14
+/Phonebook.Domain/packages
+/Phonebook.Domain/Phonebook.Domain/bin/Debug
+/Phonebook.Domain/Phonebook.Domain/obj
+/Phonebook.Domain/Phonebook.Domain.Tests/bin/Debug
+/Phonebook.Domain/Phonebook.Domain.Tests/obj
+/Phonebook.WebApi/.vs
+/Phonebook.WebApi/packages
+/Phonebook.WebApi/Phonebook.WebApi/bin
+/Phonebook.WebApi/Phonebook.WebApi/obj
+/Phonebook.WebApi/Phonebook.WebApi.Tests/obj
