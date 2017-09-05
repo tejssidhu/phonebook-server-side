@@ -20,13 +20,13 @@ namespace Phonebook.Domain.Tests
 		public void GetAllOnUserService()
 		{
 			//arrange
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//act
 			List<User> retUsers = userService.GetAll().ToList();
 
 			//assert
-			CollectionAssert.AreEqual(_users, retUsers);
+			CollectionAssert.AreEqual(testContext.Users, retUsers);
 
 			userService.Dispose();
 		}
@@ -35,14 +35,14 @@ namespace Phonebook.Domain.Tests
 		public void GetOnUserService()
 		{
 			//arrange
-			Guid id = _user.Id;
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			Guid id = testContext.SingleUser.Id;
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//act
 			User retUser = userService.Get(id);
 
 			//assert
-			Assert.AreEqual(_user, retUser);
+			Assert.AreEqual(testContext.SingleUser, retUser);
 
 			userService.Dispose();
 		}
@@ -52,10 +52,10 @@ namespace Phonebook.Domain.Tests
 		public void AuthenticateWithInvalidPasswordOnUserService()
 		{
 			//arrange
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//act
-			User retUser = userService.Authenticate(_user.Username, _user.Password + "WRONG");
+			User retUser = userService.Authenticate(testContext.SingleUser.Username, testContext.SingleUser.Password + "WRONG");
 
 			//assert - expect exception
 
@@ -66,13 +66,13 @@ namespace Phonebook.Domain.Tests
 		public void AuthenticateValidPasswordOnUserService()
 		{
 			//arrange
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//act
-			User retUser = userService.Authenticate(_user.Username, _user.Password);
+			User retUser = userService.Authenticate(testContext.SingleUser.Username, testContext.SingleUser.Password);
 
 			//assert
-			Assert.AreEqual(_user, retUser);
+			Assert.AreEqual(testContext.SingleUser, retUser);
 
 			userService.Dispose();
 		}
@@ -82,10 +82,10 @@ namespace Phonebook.Domain.Tests
 		public void AuthenticateWithNoExistentUserOnUserService()
 		{
 			//arrange
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//act
-			User retUser = userService.Authenticate(_user.Username + "DOESNTEXIST", _user.Password);
+			User retUser = userService.Authenticate(testContext.SingleUser.Username + "DOESNTEXIST", testContext.SingleUser.Password);
 
 			//assert - expect exception
 
@@ -97,10 +97,10 @@ namespace Phonebook.Domain.Tests
 		public void CreateWithExistingUserOnUserService()
 		{
 			//arrange
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//act
-			Guid id = userService.Create(_user);
+			Guid id = userService.Create(testContext.SingleUser);
 
 			//assert - expect exception
 
@@ -118,13 +118,13 @@ namespace Phonebook.Domain.Tests
 				Username = "igardner8"
 			};
 
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//act
 			Guid id = userService.Create(userToCreate);
 
 			//assert
-			mockUserRepository.Verify(y => y.Create(It.IsAny<User>()));
+			MockUserRepository.Verify(y => y.Create(It.IsAny<User>()));
 			Assert.IsNotNull(id);
 			Assert.AreEqual(id, userToCreate.Id);
 
@@ -136,13 +136,13 @@ namespace Phonebook.Domain.Tests
 		public void UpdateToExistingUsernameOnUserService()
 		{
 			//arrange
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//set username to that of another user
-			_user.Username = _users[0].Username;
+			testContext.SingleUser.Username = testContext.Users[0].Username;
 
 			//act
-			userService.Update(_user);
+			userService.Update(testContext.SingleUser);
 
 			//assert - expected exception
 
@@ -153,16 +153,16 @@ namespace Phonebook.Domain.Tests
 		public void UpdateOnUserService()
 		{
 			//arrange
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//set username to that of another user
-			_user.Username = _user.Username + "WITHUPDATE";
+			testContext.SingleUser.Username = testContext.SingleUser.Username + "WITHUPDATE";
 
 			//act
-			userService.Update(_user);
+			userService.Update(testContext.SingleUser);
 
 			//assert - expected exception
-			mockUserRepository.Verify(y => y.Update(It.IsAny<User>()));
+			MockUserRepository.Verify(y => y.Update(It.IsAny<User>()));
 
 			userService.Dispose();
 		}
@@ -171,13 +171,13 @@ namespace Phonebook.Domain.Tests
 		public void DeleteOnUserService()
 		{
 			//arrange
-			UserService userService = new UserService(mockUnitOfWork.Object);
+			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//act
-			userService.Delete(_user.Id);
+			userService.Delete(testContext.SingleUser.Id);
 
 			//assert - expected exception
-			mockUserRepository.Verify(y => y.Delete(It.IsAny<Guid>()));
+			MockUserRepository.Verify(y => y.Delete(It.IsAny<Guid>()));
 
 			userService.Dispose();
 		}

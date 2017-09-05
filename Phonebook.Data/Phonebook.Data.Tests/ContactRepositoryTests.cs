@@ -4,15 +4,10 @@ using Phonebook.Data.Context;
 using Phonebook.Domain.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Phonebook.Data.Repositories;
-using Phonebook.Domain.Interfaces.Repositories;
-using Moq;
-using Phonebook.Data;
-using System.Data.Entity;
 
 namespace Phonebook.Data.Tests
 {
-	[TestClass]
+    [TestClass]
 	public class ContactRepositoryTests
 	{
 
