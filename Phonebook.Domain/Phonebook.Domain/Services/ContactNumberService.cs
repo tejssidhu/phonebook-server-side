@@ -1,16 +1,14 @@
 ﻿using Phonebook.Domain.Exceptions;
-using Phonebook.Domain.Interfaces.Repositories;
 using Phonebook.Domain.Interfaces.Services;
 using Phonebook.Domain.Interfaces.UnitOfWork;
 using Phonebook.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Phonebook.Domain.Services
 {
-	public class ContactNumberService : IContactNumberService
+    public class ContactNumberService : IContactNumberService
 	{
 		private readonly IUnitOfWork _unitOfWork;
 
@@ -19,7 +17,13 @@ namespace Phonebook.Domain.Services
 			_unitOfWork = unitOfWork;
 		}
 
-		public IEnumerable<ContactNumber> GetAll()
+        public void Dispose()
+        {
+            _unitOfWork.Dispose();
+        }
+
+        #region Get methods
+        public IEnumerable<ContactNumber> GetAll()
 		{
 			return _unitOfWork.ContactNumberRepository.GetAll();
 		}
@@ -29,7 +33,14 @@ namespace Phonebook.Domain.Services
 			return _unitOfWork.ContactNumberRepository.Get(id);
 		}
 
-		public Guid Create(ContactNumber model)
+        public IEnumerable<ContactNumber> GetAllByContactId(Guid contactId)
+        {
+            return _unitOfWork.ContactNumberRepository.GetAll(x => x.ContactId == contactId);
+        }
+        #endregion
+
+        #region Create, update and delete method
+        public Guid Create(ContactNumber model)
 		{
 			var contact = _unitOfWork.ContactRepository.Get(model.ContactId);
 
@@ -63,15 +74,6 @@ namespace Phonebook.Domain.Services
 
 			_unitOfWork.SaveChanges();
 		}
-
-		public void Dispose()
-		{
-			_unitOfWork.Dispose();
-		}
-
-		public IEnumerable<ContactNumber> GetAllByContactId(Guid contactId)
-		{
-			return _unitOfWork.ContactNumberRepository.GetAll(x => x.ContactId == contactId);
-		}
+        #endregion
 	}
 }

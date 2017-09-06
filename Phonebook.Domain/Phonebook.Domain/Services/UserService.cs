@@ -23,7 +23,8 @@ namespace Phonebook.Domain.Services
 			_unitOfWork.Dispose();
         }
 
-		public IEnumerable<User> GetAll()
+        #region Get methods
+        public IEnumerable<User> GetAll()
         {
 			return _unitOfWork.UserRepository.GetAll();
         }
@@ -33,6 +34,22 @@ namespace Phonebook.Domain.Services
 			return _unitOfWork.UserRepository.Get(id);
         }
 
+        public User Authenticate(string username, string password)
+        {
+            var user = _unitOfWork.UserRepository.GetAll(u => u.Username == username).SingleOrDefault();
+
+            if (user == null) throw new ObjectNotFoundException("User");
+
+            if (user.Password != password.Trim())
+            {
+                throw new InvalidPasswordException();
+            }
+
+            return user;
+        }
+        #endregion
+
+        #region Create, Update and delete methods
         public Guid Create(User model)
         {
 			var user = _unitOfWork.UserRepository.GetAll(u => u.Username == model.Username).SingleOrDefault();
@@ -63,19 +80,6 @@ namespace Phonebook.Domain.Services
 			
 			_unitOfWork.SaveChanges();
         }
-
-        public User Authenticate(string username, string password)
-        {
-			var user = _unitOfWork.UserRepository.GetAll(u => u.Username == username).SingleOrDefault();
-
-            if (user == null) throw new ObjectNotFoundException("User");
-
-            if (user.Password != password.Trim())
-            {
-                throw new InvalidPasswordException();
-            }
-
-            return user;
-        }
+        #endregion
     }
 }

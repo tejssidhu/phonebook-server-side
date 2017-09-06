@@ -27,3 +27,5 @@
 /Phonebook.TestTools/packages
 /Phonebook.TestTools/Phonebook.TestTools/bin/Debug
 /Phonebook.TestTools/Phonebook.TestTools/obj
+/Phonebook.Data/.vs/Phonebook.Data/v15/sqlite3/storage.ide
+/Phonebook.Data/.vs/Phonebook.Data/v15/.suo

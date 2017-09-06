@@ -18,7 +18,13 @@ namespace Phonebook.Domain.Services
 			_unitOfWork = unitOfWork;
 		}
 
-		public IEnumerable<Contact> GetAll()
+        public void Dispose()
+        {
+            _unitOfWork.Dispose();
+        }
+
+        #region Get methods
+        public IEnumerable<Contact> GetAll()
 		{
 			return _unitOfWork.ContactRepository.GetAll();
 		}
@@ -28,7 +34,31 @@ namespace Phonebook.Domain.Services
 			return _unitOfWork.ContactRepository.Get(id);
 		}
 
-		public Guid Create(Contact model)
+        public IEnumerable<Contact> SearchContactsByName(Guid userId, string forename, string surname)
+        {
+            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && x.Forename.Contains(forename) && x.Surname.Contains(surname));
+        }
+
+        public IEnumerable<Contact> SearchContactsByEmail(Guid userId, string email)
+        {
+            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && x.Email.Contains(email));
+        }
+
+        public IEnumerable<Contact> GetAllByUserId(Guid userId)
+        {
+            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId);
+        }
+
+        public IEnumerable<Contact> Search(Guid userId, string name, string email)
+        {
+            name = String.IsNullOrEmpty(name) ? "" : name;
+            email = String.IsNullOrEmpty(email) ? "" : email;
+            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && (x.Forename + " " + x.Surname).Contains(name) && x.Email.Contains(email));
+        }
+        #endregion
+
+        #region Create, update and delete method
+        public Guid Create(Contact model)
 		{
 			var user = _unitOfWork.UserRepository.Get(model.UserId);
 
@@ -62,32 +92,6 @@ namespace Phonebook.Domain.Services
 
 			_unitOfWork.SaveChanges();
 		}
-
-		public void Dispose()
-		{
-			_unitOfWork.Dispose();
-		}
-
-		public IEnumerable<Contact> SearchContactsByName(Guid userId, string forename, string surname)
-		{
-			return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && x.Forename.Contains(forename) && x.Surname.Contains(surname));
-		}
-
-		public IEnumerable<Contact> SearchContactsByEmail(Guid userId, string email)
-		{
-			return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && x.Email.Contains(email));
-		}
-
-		public IEnumerable<Contact> GetAllByUserId(Guid userId)
-		{
-			return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId);
-		}
-
-		public IEnumerable<Contact> Search(Guid userId, string name, string email)
-		{
-			name = String.IsNullOrEmpty(name) ? "" : name;
-			email = String.IsNullOrEmpty(email) ? "" : email;
-			return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && (x.Forename + " " + x.Surname).Contains(name) && x.Email.Contains(email));
-		}
+        #endregion
 	}
 }

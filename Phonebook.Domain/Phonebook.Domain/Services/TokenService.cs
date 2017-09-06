@@ -30,7 +30,7 @@ namespace Phonebook.Domain.Services
 			_unitOfWork.Dispose();
 		}
 
-		public Model.Token GenerateToken(Guid userId)
+		public Token GenerateToken(Guid userId)
 		{
 			string authToken = Guid.NewGuid().ToString();
 			DateTime issuedOn = DateTime.Now;
