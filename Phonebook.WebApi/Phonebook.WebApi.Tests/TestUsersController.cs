@@ -168,5 +168,60 @@ namespace Phonebook.WebApi.Tests
             Assert.AreEqual(statusCodeResult.StatusCode, System.Net.HttpStatusCode.NoContent);
         }
 
+        [TestMethod]
+        public void DeleteContactThatDoesntExistReturnsNotFound()
+        {
+            var guid = new Guid("b224a9a9-f02f-4403-ba6c-fb05951ede65");
+            var controller = new UsersController(MockUserService.Object);
+
+            IHttpActionResult response = controller.Delete(guid);
+
+            Assert.IsInstanceOfType(response, typeof(NotFoundResult));
+        }
+
+        //TODO: fix this test
+        //[TestMethod]
+        //public void GetContactsByUserId()
+        //{
+        //    var guidOfExistingUser = new Guid("5875412f-e8b8-493e-bd58-5df35083342c");
+        //    var controller = new UsersController(MockUserService.Object);
+
+        //    IHttpActionResult response = controller.MyContacts(guidOfExistingUser);
+        //    var contentResult = response as OkNegotiatedContentResult<List<User>>;
+
+        //    Assert.IsNotNull(contentResult);
+        //    Assert.IsNotNull(contentResult.Content);
+        //    Assert.AreEqual(11, contentResult.Content.Count);
+        //}
+
+        //[TestMethod]
+        //public void AuthenticateReturnsUser()
+        //{
+        //    var username = "mblack3";
+        //    var password = "MsNDnRy1";
+        //    UsersController controller = new UsersController(MockUserService.Object);
+
+        //    IHttpActionResult response = controller.Authenticate(username, password);
+        //    var contentResult = response as OkNegotiatedContentResult<User>;
+
+        //    Assert.IsNotNull(contentResult);
+        //    Assert.IsNotNull(contentResult.Content);
+        //    Assert.AreEqual(new Guid("2B3B4D72-1C15-40E0-A05A-012B724950C3"), contentResult.Content.Id);
+        //}
+
+        //[TestMethod]
+        //public void AuthenticateReturnsNotFound()
+        //{
+        //    var username = "fgd";
+        //    var password = "fdgdf";
+        //    UsersController controller = new UsersController(MockUserService.Object);
+
+        //    IHttpActionResult response = controller.Authenticate(username, password);
+        //    var contentResult = response as NotFoundResult;
+
+        //    Assert.IsNotNull(contentResult);
+        //}
+
+
     }
 }

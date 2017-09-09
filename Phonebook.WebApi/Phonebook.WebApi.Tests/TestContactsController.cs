@@ -173,22 +173,5 @@ namespace Phonebook.WebApi.Tests
 
             Assert.IsInstanceOfType(response, typeof(NotFoundResult));
         }
-
-        //TODO: fix this test
-        //[TestMethod]
-        //public void GetByUserIdReturnsCorrectContacts()
-        //{
-        //    var existingUser = new Guid("26e31dde-4bcb-47d4-be80-958676c5cafd");
-        //    ContactsController controller = new ContactsController(MockContactService.Object);
-        //    //controller.Request = new HttpRequestMessage();
-        //    controller.Configuration = new HttpConfiguration();
-
-        //    IHttpActionResult response = controller.GetByUser(existingUser);
-        //    var contentResult = response as OkNegotiatedContentResult<List<Contact>>;
-
-        //    Assert.IsNotNull(contentResult);
-        //    //Assert.IsNotNull(contentResult.Content);
-        //    //Assert.AreEqual(3, contentResult.Content.Count);
-        //}
     }
 }

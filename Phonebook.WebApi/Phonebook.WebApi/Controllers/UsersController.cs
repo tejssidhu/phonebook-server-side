@@ -52,6 +52,10 @@ namespace Phonebook.WebApi.Controllers
             {
                 return NotFound();
             }
+            catch (InvalidPasswordException e2)
+            {
+                return NotFound();
+            }
 
             return Ok(item);
         }
