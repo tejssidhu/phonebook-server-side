@@ -29,3 +29,5 @@
 /Phonebook.TestTools/Phonebook.TestTools/obj
 /Phonebook.Data/.vs/Phonebook.Data/v15/sqlite3/storage.ide
 /Phonebook.Data/.vs/Phonebook.Data/v15/.suo
+/Phonebook.Domain/.vs/Phonebook.Domain/v15
+/Phonebook.WebApi/TestResults

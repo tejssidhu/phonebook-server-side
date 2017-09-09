@@ -127,21 +127,6 @@ namespace Phonebook.Domain.Tests
 		}
 
 		[TestMethod]
-		public void GetAllContactsByUserIdOnContactService()
-		{
-			//arrange
-			ContactService contactService = new ContactService(MockUnitOfWork.Object);
-
-			//act
-			List<Contact> retContacts = contactService.GetAllByUserId(testContext.SingleUser.Id).ToList();
-
-			//assert
-			CollectionAssert.AreEqual(testContext.SingleUser.PhoneBook.ToList(), retContacts);
-
-			contactService.Dispose();
-		}
-
-		[TestMethod]
 		public void SearchContactsByEmailOnContactService()
 		{
 			//arrange

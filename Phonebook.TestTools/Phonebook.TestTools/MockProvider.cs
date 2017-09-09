@@ -152,19 +152,26 @@ namespace Phonebook.TestTools
                 It.IsAny<Contact>()))
                 .Returns((Contact c) => c.Id);
 
-            mockService.Setup(x => x.GetAllByUserId(It.IsAny<Guid>()))
+            return mockService;
+        }
+
+        public static Mock<IUserService> GetUserService(List<User> users, List<Contact> contacts)
+        {
+            var mockService = new Mock<IUserService>();
+
+            mockService.Setup(x => x.GetContacts(It.IsAny<Guid>()))
                 .Returns((Guid userGuid) =>
+                {
+                    IQueryable<Contact> query = contacts.AsQueryable();
+
+                    if (userGuid != null)
                     {
-                        IQueryable<Contact> query = contacts.AsQueryable();
+                        query = query.Where(c => c.UserId == userGuid);
+                    }
 
-                        if (userGuid != null)
-                        {
-                            query = query.Where(c => c.UserId == userGuid);
-                        }
+                    return query.ToList();
 
-                        return query.ToList();
-
-                    });
+                });
 
             return mockService;
         }

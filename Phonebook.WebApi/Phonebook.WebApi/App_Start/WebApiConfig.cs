@@ -1,5 +1,4 @@
 ﻿using Phonebook.Domain.Model;
-using System;
 using System.Web.Http;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
@@ -12,19 +11,25 @@ namespace Phonebook.WebApi
         {   
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+            
             // Web API configuration and services
             ODataModelBuilder builder = new ODataConventionModelBuilder();
+            builder.Namespace = "Phonebook";
             builder.EntitySet<Contact>("Contacts");
+            builder.EntitySet<User>("Users");
 
-            var function = builder.Function("GetByUser");
-            function.Parameter<Guid>("UserId");
-            function.ReturnsCollectionFromEntitySet<Contact>("UsersContacts");
+            var function = builder.EntityType<User>().Function("MyContacts").ReturnsCollectionFromEntitySet<Contact>("Contacts");
+
+            var function2 = builder.Function("Authenticate");
+            function2.Parameter<string>("username");
+            function2.Parameter<string>("password");
+            function2.ReturnsFromEntitySet<User>("User");
 
             config.MapODataServiceRoute(
                 routeName: "ODataRoute",
                 routePrefix: null,
-                model: builder.GetEdmModel());
+                model: builder.GetEdmModel()
+                );
         }
     }
 }

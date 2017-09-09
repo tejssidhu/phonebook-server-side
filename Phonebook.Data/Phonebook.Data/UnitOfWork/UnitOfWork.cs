@@ -15,6 +15,7 @@ namespace Phonebook.Data
 	{
 		private readonly PhonebookContext _phonebookContext;
 
+        // TODO: use dependency injection instead of manually creating instances
 		public UnitOfWork()
 		{
 			_phonebookContext = new PhonebookContext();

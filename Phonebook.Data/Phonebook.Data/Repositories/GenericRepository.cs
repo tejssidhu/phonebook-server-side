@@ -6,12 +6,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Phonebook.Data.Repositories
 {
-	public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity
 	{
 		private readonly PhonebookContext _phonebookContext;
 		private DbSet<TEntity> dbSet;

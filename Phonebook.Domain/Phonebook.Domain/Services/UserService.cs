@@ -47,6 +47,11 @@ namespace Phonebook.Domain.Services
 
             return user;
         }
+
+        public IEnumerable<Contact> GetContacts(Guid userId)
+        {
+            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId);
+        }
         #endregion
 
         #region Create, Update and delete methods

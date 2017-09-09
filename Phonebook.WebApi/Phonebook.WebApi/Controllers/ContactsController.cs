@@ -81,15 +81,5 @@ namespace Phonebook.WebApi.Controllers
             _contactService.Delete(key);
             return StatusCode(System.Net.HttpStatusCode.NoContent);
         }
-
-        [HttpGet]
-        [ODataRoute("GetByUser(UserId={UserId})")]
-        public IHttpActionResult GetByUser([FromODataUri]Guid UserId)
-        {
-            var result = new List<Contact>();
-            var items = _contactService.GetAllByUserId(UserId);
-
-            return Ok(items);
-        }
     }
 }

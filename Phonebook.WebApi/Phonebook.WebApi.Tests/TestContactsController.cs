@@ -6,6 +6,7 @@ using System.Web.Http.Results;
 using Phonebook.Domain.Model;
 using System.Collections.Generic;
 using System.Web.OData.Results;
+using Moq;
 
 namespace Phonebook.WebApi.Tests
 {
@@ -69,6 +70,24 @@ namespace Phonebook.WebApi.Tests
         }
 
         [TestMethod]
+        public void PostMethodReturnsBadRequestWhenModelIsInvalid()
+        {
+            // Arrange
+            var newContactGuid = new Guid("0998d643-4c5e-4b1f-9778-e0f6974eaf1d");
+            var newTitle = "Mr";
+            var controller = new ContactsController(MockContactService.Object);
+            controller.ModelState.AddModelError("test", "test");
+
+            // Act
+            IHttpActionResult actionResult = controller.Post(new Contact { Id = newContactGuid, Title = newTitle });
+            var createdResult = actionResult as InvalidModelStateResult;
+
+            // Assert
+            Assert.IsNotNull(createdResult);
+        }
+              
+
+        [TestMethod]
         public void PutReturnsContentResult()
         {
             // Arrange
@@ -83,6 +102,37 @@ namespace Phonebook.WebApi.Tests
             Assert.IsNotNull(contentResult);
             Assert.IsNotNull(contentResult.Content);
             Assert.AreEqual(guidOfExistingContact, contentResult.Content.Id);
+        }
+        
+        [TestMethod]
+        public void PutReturnsBadRequestWhenModelIsInvalidResult()
+        {
+            // Arrange
+            var guidOfExistingContact = new Guid("cc772bf2-40bd-4b25-9e3a-0e80b1a63383");
+            var controller = new ContactsController(MockContactService.Object);
+            controller.ModelState.AddModelError("test", "test");
+
+            // Act
+            IHttpActionResult actionResult = controller.Put(guidOfExistingContact, new Contact { Id = guidOfExistingContact, Title = "Mrs" });
+            var createdResult = actionResult as InvalidModelStateResult;
+
+            // Assert
+            Assert.IsNotNull(createdResult);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void PutThrowsException()
+        {
+            // Arrange
+            var guidOfExistingContact = new Guid("cc772bf2-40bd-4b25-9e3a-0e80b1a63383");
+            MockContactService.Setup(item => item.Update(It.IsAny<Contact>())).Throws(new Exception());
+            var controller = new ContactsController(MockContactService.Object);
+
+            // Act
+            IHttpActionResult actionResult = controller.Put(guidOfExistingContact, new Contact { Id = guidOfExistingContact, Title = "Mrs" });
+            
+            // Assert
         }
 
         [TestMethod]
@@ -113,18 +163,32 @@ namespace Phonebook.WebApi.Tests
             Assert.AreEqual(statusCodeResult.StatusCode, System.Net.HttpStatusCode.NoContent);
         }
 
+        [TestMethod]
+        public void DeleteContactThatDoesntExistReturnsNotFound()
+        {
+            var guidOfContact = new Guid("b224a9a9-f02f-4403-ba6c-fb05951ede65");
+            var controller = new ContactsController(MockContactService.Object);
+
+            IHttpActionResult response = controller.Delete(guidOfContact);
+
+            Assert.IsInstanceOfType(response, typeof(NotFoundResult));
+        }
+
+        //TODO: fix this test
         //[TestMethod]
         //public void GetByUserIdReturnsCorrectContacts()
         //{
         //    var existingUser = new Guid("26e31dde-4bcb-47d4-be80-958676c5cafd");
         //    ContactsController controller = new ContactsController(MockContactService.Object);
+        //    //controller.Request = new HttpRequestMessage();
+        //    controller.Configuration = new HttpConfiguration();
 
         //    IHttpActionResult response = controller.GetByUser(existingUser);
-        //    var contentResult = response as OkResult<List<Contact>>;
+        //    var contentResult = response as OkNegotiatedContentResult<List<Contact>>;
 
         //    Assert.IsNotNull(contentResult);
-        //    Assert.IsNotNull(contentResult.Content);
-        //    Assert.AreEqual(3, contentResult.Content.Count);
+        //    //Assert.IsNotNull(contentResult.Content);
+        //    //Assert.AreEqual(3, contentResult.Content.Count);
         //}
     }
 }

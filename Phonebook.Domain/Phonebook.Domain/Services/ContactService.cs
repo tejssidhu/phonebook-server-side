@@ -44,11 +44,6 @@ namespace Phonebook.Domain.Services
             return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && x.Email.Contains(email));
         }
 
-        public IEnumerable<Contact> GetAllByUserId(Guid userId)
-        {
-            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId);
-        }
-
         public IEnumerable<Contact> Search(Guid userId, string name, string email)
         {
             name = String.IsNullOrEmpty(name) ? "" : name;
