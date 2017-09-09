@@ -159,6 +159,22 @@ namespace Phonebook.TestTools
         {
             var mockService = new Mock<IUserService>();
 
+            mockService.Setup(x => x.GetAll()).Returns(users);
+
+            mockService.Setup(x => x.Get(
+                It.IsAny<Guid>()))
+                .Returns(
+                    new Func<Guid, User>((arg1) =>
+                    {
+                        IQueryable<User> query = users.AsQueryable();
+
+                        return query.Where(c => c.Id == arg1).FirstOrDefault();
+                    }));
+
+            mockService.Setup(x => x.Create(
+                It.IsAny<User>()))
+                .Returns((User e) => e.Id);
+
             mockService.Setup(x => x.GetContacts(It.IsAny<Guid>()))
                 .Returns((Guid userGuid) =>
                 {
