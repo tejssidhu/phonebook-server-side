@@ -11,24 +11,24 @@ namespace Phonebook.WebApi.Controllers
 {
     public class ContactsController : ODataController
     {
-        private readonly IContactService _contactService;
+        private readonly IContactService _service;
 
         public ContactsController(IContactService contactService)
         {
-            _contactService = contactService;
+            _service = contactService;
         }
 
         public IHttpActionResult Get()
         {
             var result = new List<Contact>();
-            var items = _contactService.GetAll().ToList();
+            var items = _service.GetAll().ToList();
             
             return Ok(items);
         }
 
         public IHttpActionResult Get([FromODataUri]Guid key)
         {
-            var item = _contactService.Get(key);
+            var item = _service.Get(key);
             if (item == null)
             {
                 return NotFound();
@@ -43,7 +43,7 @@ namespace Phonebook.WebApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            Guid contactId = _contactService.Create(contact);
+            Guid contactId = _service.Create(contact);
 
             return Created(contact);
         }
@@ -61,7 +61,7 @@ namespace Phonebook.WebApi.Controllers
 
             try
             {
-                _contactService.Update(contact);
+                _service.Update(contact);
             }
             catch
             {
@@ -73,13 +73,23 @@ namespace Phonebook.WebApi.Controllers
 
         public IHttpActionResult Delete([FromODataUri] Guid key)
         {
-            var contact = _contactService.Get(key);
+            var contact = _service.Get(key);
             if (contact == null)
             {
                 return NotFound();
             }
-            _contactService.Delete(key);
+            _service.Delete(key);
             return StatusCode(System.Net.HttpStatusCode.NoContent);
+        }
+
+        [HttpGet]
+        [ODataRoute("Contacts({key})/Phonebook.GetContactNumbers")]
+        public IHttpActionResult GetContactNumbers([FromODataUri]Guid key)
+        {
+            var result = new List<Contact>();
+            var items = _service.GetContactNumbers(key).ToList();
+
+            return Ok(items);
         }
     }
 }

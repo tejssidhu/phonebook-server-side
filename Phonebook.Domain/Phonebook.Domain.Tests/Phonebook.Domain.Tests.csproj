@@ -44,10 +44,6 @@
       <HintPath>..\packages\Moq.4.7.99\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Phonebook.TestTools">
-      <HintPath>..\..\Phonebook.TestTools\Phonebook.TestTools\bin\Debug\Phonebook.TestTools.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -78,6 +74,13 @@
     <Content Include="Json\TestUsers.txt" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Phonebook.TestTools\Phonebook.TestTools\Phonebook.TestTools.csproj">
+      <Project>{bd788b11-ace9-4bc5-80bd-88680ee2c224}</Project>
+      <Name>Phonebook.TestTools</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Phonebook.Domain\Phonebook.Domain.csproj">
       <Project>{8db600d8-61b6-44d4-8d17-b3c07aae6d5f}</Project>
       <Name>Phonebook.Domain</Name>

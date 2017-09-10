@@ -31,3 +31,6 @@
 /Phonebook.Data/.vs/Phonebook.Data/v15/.suo
 /Phonebook.Domain/.vs/Phonebook.Domain/v15
 /Phonebook.WebApi/TestResults
+/packages
+/Phonebook/obj/Debug
+/Phonebook

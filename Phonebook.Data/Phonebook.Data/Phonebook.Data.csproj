@@ -41,10 +41,6 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Phonebook.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Phonebook.Domain\Phonebook.Domain\bin\Debug\Phonebook.Domain.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -90,7 +86,12 @@
     <Content Include="Json\Contacts.txt" />
     <Content Include="Json\Users.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Phonebook.Domain\Phonebook.Domain\Phonebook.Domain.csproj">
+      <Project>{8db600d8-61b6-44d4-8d17-b3c07aae6d5f}</Project>
+      <Name>Phonebook.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201602180800399_InitialCreate.resx">
       <DependentUpon>201602180800399_InitialCreate.cs</DependentUpon>

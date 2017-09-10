@@ -72,12 +72,6 @@
     <Reference Include="Microsoft.Spatial, Version=7.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Spatial.7.2.0\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
     </Reference>
-    <Reference Include="Phonebook.Data">
-      <HintPath>..\..\Phonebook.Data\Phonebook.Data\bin\Debug\Phonebook.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Phonebook.Domain">
-      <HintPath>..\..\Phonebook.Domain\Phonebook.Domain\bin\Debug\Phonebook.Domain.dll</HintPath>
-    </Reference>
     <Reference Include="StructureMap, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.5.2\lib\net45\StructureMap.dll</HintPath>
     </Reference>
@@ -150,6 +144,16 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Phonebook.Data\Phonebook.Data\Phonebook.Data.csproj">
+      <Project>{482a85a5-2d8c-49fe-bef0-1a986c03e076}</Project>
+      <Name>Phonebook.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Phonebook.Domain\Phonebook.Domain\Phonebook.Domain.csproj">
+      <Project>{8db600d8-61b6-44d4-8d17-b3c07aae6d5f}</Project>
+      <Name>Phonebook.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

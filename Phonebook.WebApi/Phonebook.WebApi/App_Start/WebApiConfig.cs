@@ -25,6 +25,8 @@ namespace Phonebook.WebApi
             function2.Parameter<string>("password");
             function2.ReturnsFromEntitySet<User>("User");
 
+            var function3 = builder.EntityType<Contact>().Function("GetContactNumbers").ReturnsCollectionFromEntitySet<ContactNumber>("ContactNumbers");
+
             config.MapODataServiceRoute(
                 routeName: "ODataRoute",
                 routePrefix: null,

@@ -51,10 +51,6 @@
       <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Phonebook.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Phonebook.Domain\Phonebook.Domain\bin\Debug\Phonebook.Domain.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
@@ -83,18 +79,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Phonebook.Data\Phonebook.Data.csproj">
-      <Project>{482a85a5-2d8c-49fe-bef0-1a986c03e076}</Project>
-      <Name>Phonebook.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Phonebook.Domain\Phonebook.Domain\Phonebook.Domain.csproj">
+      <Project>{8db600d8-61b6-44d4-8d17-b3c07aae6d5f}</Project>
+      <Name>Phonebook.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Phonebook.Data\Phonebook.Data.csproj">
+      <Project>{482a85a5-2d8c-49fe-bef0-1a986c03e076}</Project>
+      <Name>Phonebook.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
