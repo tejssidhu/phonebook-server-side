@@ -128,6 +128,7 @@
   <ItemGroup>
     <Compile Include="App_Start\StructureMapConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ContactNumbersController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />

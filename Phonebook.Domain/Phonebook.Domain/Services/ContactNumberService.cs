@@ -32,11 +32,6 @@ namespace Phonebook.Domain.Services
 		{
 			return _unitOfWork.ContactNumberRepository.Get(id);
 		}
-
-        public IEnumerable<ContactNumber> GetAllByContactId(Guid contactId)
-        {
-            return _unitOfWork.ContactNumberRepository.GetAll(x => x.ContactId == contactId);
-        }
         #endregion
 
         #region Create, update and delete method

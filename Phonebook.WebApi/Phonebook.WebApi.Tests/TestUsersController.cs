@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Newtonsoft.Json;
 using Phonebook.Domain.Model;
 using Phonebook.WebApi.Controllers;
 using System;
@@ -186,8 +187,8 @@ namespace Phonebook.WebApi.Tests
         //    var guidOfExistingUser = new Guid("5875412f-e8b8-493e-bd58-5df35083342c");
         //    var controller = new UsersController(MockUserService.Object);
 
-        //    IHttpActionResult response = controller.MyContacts(guidOfExistingUser);
-        //    var contentResult = response as OkNegotiatedContentResult<List<User>>;
+        //    var response = controller.MyContacts(guidOfExistingUser);
+        //    var contentResult = response as OkNegotiatedContentResult<List<Contact>>;
 
         //    Assert.IsNotNull(contentResult);
         //    Assert.IsNotNull(contentResult.Content);

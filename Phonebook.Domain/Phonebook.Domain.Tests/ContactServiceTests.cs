@@ -170,6 +170,21 @@ namespace Phonebook.Domain.Tests
 
 			contactService.Dispose();
 		}
-		#endregion
-	}
+
+        [TestMethod]
+        public void GetContactNumbersByContactIdOnContactService()
+        {
+            //arrange
+            ContactService contactService = new ContactService(MockUnitOfWork.Object);
+
+            //act
+            List<ContactNumber> retContactNumbers = contactService.GetContactNumbers(testContext.SingleContact.Id).ToList();
+
+            //assert
+            CollectionAssert.AreEqual(testContext.SingleContact.ContactNumbers.ToList(), retContactNumbers);
+
+            contactService.Dispose();
+        }
+        #endregion
+    }
 }

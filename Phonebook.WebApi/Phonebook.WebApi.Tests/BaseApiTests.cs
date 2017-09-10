@@ -17,6 +17,7 @@ namespace Phonebook.WebApi.Tests
         protected Mock<IContactNumberRepository> MockContactNumberRepository;
         protected Mock<IContactService> MockContactService;
         protected Mock<IUserService> MockUserService;
+        protected Mock<IContactNumberService> MockContactNumberService;
 
         protected Mock<IUnitOfWork> MockUnitOfWork
         {
@@ -55,6 +56,7 @@ namespace Phonebook.WebApi.Tests
 
             MockContactService = MockProvider.GetContactService(testContext.Contacts);
             MockUserService = MockProvider.GetUserService(testContext.Users, testContext.Contacts);
+            MockContactNumberService = MockProvider.GetContactNumberService(testContext.ContactNumbers);
         }
         #endregion
     }

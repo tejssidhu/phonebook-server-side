@@ -80,21 +80,6 @@ namespace Phonebook.Domain.Tests
 		}
 
 		[TestMethod]
-		public void GetAllContactNumbersByContactIdOnContactNumberService()
-		{
-			//arrange
-			ContactNumberService contactNumberService = new ContactNumberService(MockUnitOfWork.Object);
-
-			//act
-			List<ContactNumber> retContactNumbers = contactNumberService.GetAllByContactId(testContext.SingleContact.Id).ToList();
-
-			//assert
-			CollectionAssert.AreEqual(testContext.SingleContact.ContactNumbers.ToList(), retContactNumbers);
-
-			contactNumberService.Dispose();
-		}
-
-		[TestMethod]
 		[ExpectedException(typeof(ObjectAlreadyExistException))]
 		public void UpdateContactNumberToExistingContactNumbersTelephoneNumberOnContactNumberService()
 		{

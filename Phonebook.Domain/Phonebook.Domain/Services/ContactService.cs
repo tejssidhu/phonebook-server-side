@@ -50,6 +50,11 @@ namespace Phonebook.Domain.Services
             email = String.IsNullOrEmpty(email) ? "" : email;
             return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && (x.Forename + " " + x.Surname).Contains(name) && x.Email.Contains(email));
         }
+
+        public IEnumerable<ContactNumber> GetContactNumbers(Guid contactId)
+        {
+            return _unitOfWork.ContactNumberRepository.GetAll(x => x.ContactId == contactId);
+        }
         #endregion
 
         #region Create, update and delete method

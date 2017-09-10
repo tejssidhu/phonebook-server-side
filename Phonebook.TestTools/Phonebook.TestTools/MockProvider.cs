@@ -191,5 +191,28 @@ namespace Phonebook.TestTools
 
             return mockService;
         }
+
+        public static Mock<IContactNumberService> GetContactNumberService(List<ContactNumber> contactNumbers)
+        {
+            var mockService = new Mock<IContactNumberService>();
+
+            mockService.Setup(x => x.GetAll()).Returns(contactNumbers);
+
+            mockService.Setup(x => x.Get(
+                It.IsAny<Guid>()))
+                .Returns(
+                    new Func<Guid, ContactNumber>((arg1) =>
+                    {
+                        IQueryable<ContactNumber> query = contactNumbers.AsQueryable();
+
+                        return query.Where(c => c.Id == arg1).FirstOrDefault();
+                    }));
+
+            mockService.Setup(x => x.Create(
+                It.IsAny<ContactNumber>()))
+                .Returns((ContactNumber e) => e.Id);
+
+            return mockService;
+        }
     }
 }

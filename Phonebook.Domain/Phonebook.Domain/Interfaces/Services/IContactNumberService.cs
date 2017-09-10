@@ -9,6 +9,5 @@ namespace Phonebook.Domain.Interfaces.Services
 {
 	public interface IContactNumberService : IService<ContactNumber>
 	{
-		IEnumerable<ContactNumber> GetAllByContactId(Guid contactId);
 	}
 }
