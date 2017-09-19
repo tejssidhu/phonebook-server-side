@@ -20,10 +20,10 @@ namespace Phonebook.WebApi
 
             var function = builder.EntityType<User>().Function("MyContacts").ReturnsCollectionFromEntitySet<Contact>("Contacts");
 
-            var function2 = builder.Function("Authenticate");
-            function2.Parameter<string>("username");
-            function2.Parameter<string>("password");
-            function2.ReturnsFromEntitySet<User>("User");
+            var action = builder.Action("Authenticate");
+            action.Parameter<string>("username");
+            action.Parameter<string>("password");
+            action.ReturnsFromEntitySet<User>("User");
 
             var function3 = builder.EntityType<Contact>().Function("GetContactNumbers").ReturnsCollectionFromEntitySet<ContactNumber>("ContactNumbers");
 

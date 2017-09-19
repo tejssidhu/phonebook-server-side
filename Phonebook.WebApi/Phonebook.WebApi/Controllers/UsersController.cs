@@ -39,14 +39,20 @@ namespace Phonebook.WebApi.Controllers
             return Ok(item);
         }
 
-        [HttpGet]
-        [ODataRoute("Authenticate(username={username}, password={password})")]
-        public IHttpActionResult Authenticate([FromODataUri]string username, [FromODataUri]string password)
+        [HttpPost]
+        [ODataRoute("Authenticate")]
+        public IHttpActionResult Authenticate(ODataActionParameters parameters)
         {
+            object username;
+            object password;
+            if (!parameters.TryGetValue("username", out username) || !parameters.TryGetValue("password", out password))
+            {
+                return NotFound();
+            }
             User item;
             try
             {
-                item = _service.Authenticate(username, password);
+                item = _service.Authenticate(username.ToString(), password.ToString());
             }
             catch (ObjectNotFoundException e)
             {
