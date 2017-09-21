@@ -3,30 +3,39 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace Phonebook.Domain.Model
 {
+    [DataContract]
 	public class Contact : IEntity
 	{
 		[Required]
-		public Guid Id { get; set; }
-		[Required]
-		public Guid UserId { get; set; }
+        [DataMember(Name = "id")]
+        public Guid Id { get; set; }
+
+        [Required]
+        [DataMember(Name = "userId")]
+        public Guid UserId { get; set; }
 
 		[MaxLength(100)]
-		public string Title { get; set; }
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
 		
 		[MaxLength(100)]
-		public string Forename { get; set; }
+        [DataMember(Name = "forename")]
+        public string Forename { get; set; }
 
 		[MaxLength(100)]
-		public string Surname { get; set; }
+        [DataMember(Name = "surname")]
+        public string Surname { get; set; }
 		
 		[Required]
 		[EmailAddress]
 		[DataType(DataType.EmailAddress)]
 		[MaxLength(100)]
-		public string Email { get; set; }
+        [DataMember(Name = "email")]
+        public string Email { get; set; }
 
 		//defined as virtual so that they can take advantage of certain Entity Framework functionality such as lazy loading
 		public virtual ICollection<ContactNumber> ContactNumbers { get; set; }

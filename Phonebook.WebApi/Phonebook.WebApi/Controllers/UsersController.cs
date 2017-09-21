@@ -40,6 +40,7 @@ namespace Phonebook.WebApi.Controllers
         }
 
         [HttpPost]
+        [HttpOptions]
         [ODataRoute("Authenticate")]
         public IHttpActionResult Authenticate(ODataActionParameters parameters)
         {

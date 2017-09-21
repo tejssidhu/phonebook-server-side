@@ -1,23 +1,27 @@
 ﻿using Phonebook.Domain.Interfaces.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace Phonebook.Domain.Model
 {
+    [DataContract]
 	public class User : IEntity
 	{
 		[Required]
-		public Guid Id { get; set; }
+        [DataMember(Name = "id")]
+        public Guid Id { get; set; }
 		
 		[Required]
 		[MaxLength(100)]
-		public string Username { get; set; }
+        [DataMember(Name = "username")]
+        public string Username { get; set; }
 		
 		[Required]
 		[MaxLength(100)]
 		[DataType(DataType.Password)]
+        [IgnoreDataMember]
 		public string Password { get; set; }
 
 		//defined as virtual so that they can take advantage of certain Entity Framework functionality such as lazy loading
