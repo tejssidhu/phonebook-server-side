@@ -43,6 +43,7 @@ namespace Phonebook.WebApi.Controllers
             {
                 return BadRequest(ModelState);
             }
+            contact.Id = Guid.NewGuid();
             Guid contactId = _service.Create(contact);
 
             return Created(contact);

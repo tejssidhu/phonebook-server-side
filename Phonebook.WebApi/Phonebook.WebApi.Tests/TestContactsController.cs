@@ -55,17 +55,16 @@ namespace Phonebook.WebApi.Tests
         public void PostMethodSetsLocationHeader()
         {
             // Arrange
-            var newContactGuid = new Guid("0998d643-4c5e-4b1f-9778-e0f6974eaf1d");
             var newTitle = "Mr";
             var controller = new ContactsController(MockContactService.Object);
 
             // Act
-            IHttpActionResult actionResult = controller.Post(new Contact { Id = newContactGuid, Title = newTitle });
+            IHttpActionResult actionResult = controller.Post(new Contact { Title = newTitle });
             var createdResult = actionResult as CreatedODataResult<Contact>;
 
             // Assert
             Assert.IsNotNull(createdResult);
-            Assert.AreEqual(createdResult.Entity.Id, newContactGuid);
+            Assert.IsNotNull(createdResult.Entity.Id);
             Assert.AreEqual(createdResult.Entity.Title, newTitle);
         }
 
