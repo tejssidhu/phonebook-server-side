@@ -14,5 +14,13 @@ namespace Phonebook.WebApi
             GlobalConfiguration.Configure(WebApiConfig.Register);
             StructureMapConfig.RegisterResolver();
         }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            if (Request.Headers.AllKeys.Contains("Origin") && Request.HttpMethod == "OPTIONS")
+            {
+                Response.Flush();
+            }
+        }
     }
 }
