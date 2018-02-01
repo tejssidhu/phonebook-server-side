@@ -1,6 +1,7 @@
 ﻿using Phonebook.Domain.Exceptions;
 using Phonebook.Domain.Interfaces.Services;
 using Phonebook.Domain.Model;
+using Phonebook.WebApi.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,7 +114,9 @@ namespace Phonebook.WebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [HttpGet]
+		[Authorize]
+		[ScopeAuthorise("phonebookAPI.read")]
+		[HttpGet]
         [ODataRoute("Users({key})/Phonebook.MyContacts")]
         public IHttpActionResult MyContacts([FromODataUri]Guid key)
         {
