@@ -1,5 +1,6 @@
 ﻿using Phonebook.Domain.Interfaces.Services;
 using Phonebook.Domain.Model;
+using Phonebook.WebApi.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ using System.Web.OData.Routing;
 
 namespace Phonebook.WebApi.Controllers
 {
-    public class ContactsController : ODataController
+	[Authorize]
+	public class ContactsController : ODataController
     {
         private readonly IContactService _service;
 
@@ -18,7 +20,8 @@ namespace Phonebook.WebApi.Controllers
             _service = contactService;
         }
 
-        public IHttpActionResult Get()
+		[ScopeAuthorise("phonebookAPI.read")]
+		public IHttpActionResult Get()
         {
             var result = new List<Contact>();
             var items = _service.GetAll().ToList();
@@ -26,7 +29,8 @@ namespace Phonebook.WebApi.Controllers
             return Ok(items);
         }
 
-        public IHttpActionResult Get([FromODataUri]Guid key)
+		[ScopeAuthorise("phonebookAPI.read")]
+		public IHttpActionResult Get([FromODataUri]Guid key)
         {
             var item = _service.Get(key);
             if (item == null)
@@ -37,7 +41,8 @@ namespace Phonebook.WebApi.Controllers
             return Ok(item);
         }
 
-        public IHttpActionResult Post(Contact contact)
+		[ScopeAuthorise("phonebookAPI.write")]
+		public IHttpActionResult Post(Contact contact)
         {
             if (!ModelState.IsValid)
             {
@@ -49,7 +54,8 @@ namespace Phonebook.WebApi.Controllers
             return Created(contact);
         }
 
-        public IHttpActionResult Put([FromODataUri] Guid key, Contact contact)
+		[ScopeAuthorise("phonebookAPI.write")]
+		public IHttpActionResult Put([FromODataUri] Guid key, Contact contact)
         {
             if (!ModelState.IsValid)
             {
@@ -72,7 +78,8 @@ namespace Phonebook.WebApi.Controllers
             return Ok(contact);
         }
 
-        public IHttpActionResult Delete([FromODataUri] Guid key)
+		[ScopeAuthorise("phonebookAPI.write")]
+		public IHttpActionResult Delete([FromODataUri] Guid key)
         {
             var contact = _service.Get(key);
             if (contact == null)
@@ -83,7 +90,8 @@ namespace Phonebook.WebApi.Controllers
             return StatusCode(System.Net.HttpStatusCode.NoContent);
         }
 
-        [HttpGet]
+		[ScopeAuthorise("phonebookAPI.read")]
+		[HttpGet]
         [ODataRoute("Contacts({key})/Phonebook.GetContactNumbers")]
         public IHttpActionResult GetContactNumbers([FromODataUri]Guid key)
         {

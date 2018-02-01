@@ -5,9 +5,8 @@ namespace Phonebook.WebApi
 {
     public class StructureMapConfig
     {
-        public static void RegisterResolver()
+        public static void RegisterResolver(HttpConfiguration config)
         {
-            var config = GlobalConfiguration.Configuration;
             var container = IoC.Initialize();
             config.DependencyResolver = new StructureMapResolver(container);
         }

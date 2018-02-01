@@ -1,5 +1,6 @@
 ﻿using Phonebook.Domain.Interfaces.Services;
 using Phonebook.Domain.Model;
+using Phonebook.WebApi.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.OData;
 
 namespace Phonebook.WebApi.Controllers
 {
+	[Authorize]
     public class ContactNumbersController : ODataController
     {
         private readonly IContactNumberService _service;
@@ -17,7 +19,8 @@ namespace Phonebook.WebApi.Controllers
             _service = service;
         }
 
-        public IHttpActionResult Get()
+		[ScopeAuthorise("phonebookAPI.read")]
+		public IHttpActionResult Get()
         {
             var result = new List<ContactNumber>();
             var items = _service.GetAll().ToList();
@@ -25,7 +28,8 @@ namespace Phonebook.WebApi.Controllers
             return Ok(items);
         }
 
-        public IHttpActionResult Get([FromODataUri]Guid key)
+		[ScopeAuthorise("phonebookAPI.read")]
+		public IHttpActionResult Get([FromODataUri]Guid key)
         {
             var item = _service.Get(key);
             if (item == null)
@@ -36,7 +40,8 @@ namespace Phonebook.WebApi.Controllers
             return Ok(item);
         }
 
-        public IHttpActionResult Post(ContactNumber entity)
+		[ScopeAuthorise("phonebookAPI.write")]
+		public IHttpActionResult Post(ContactNumber entity)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +53,8 @@ namespace Phonebook.WebApi.Controllers
             return Created(entity);
         }
 
-        public IHttpActionResult Put([FromODataUri] Guid key, ContactNumber ContactNumber)
+		[ScopeAuthorise("phonebookAPI.write")]
+		public IHttpActionResult Put([FromODataUri] Guid key, ContactNumber ContactNumber)
         {
             if (!ModelState.IsValid)
             {
@@ -71,7 +77,8 @@ namespace Phonebook.WebApi.Controllers
             return Ok(ContactNumber);
         }
 
-        public IHttpActionResult Delete([FromODataUri] Guid key)
+		[ScopeAuthorise("phonebookAPI.write")]
+		public IHttpActionResult Delete([FromODataUri] Guid key)
         {
             var ContactNumber = _service.Get(key);
             if (ContactNumber == null)
