@@ -56,11 +56,11 @@ namespace Phonebook.WebApi.Controllers
             {
                 item = _service.Authenticate(username.ToString(), password.ToString());
             }
-            catch (ObjectNotFoundException e)
+            catch (ObjectNotFoundException)
             {
                 return NotFound();
             }
-            catch (InvalidPasswordException e2)
+            catch (InvalidPasswordException)
             {
                 return NotFound();
             }
