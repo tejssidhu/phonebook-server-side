@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -9,6 +10,7 @@ using Phonebook.Domain.Services;
 
 namespace Phonebook.Domain.Tests
 {
+	[ExcludeFromCodeCoverage]
 	[TestClass]
 	public class ContactServiceTests : BaseDomainTests
 	{

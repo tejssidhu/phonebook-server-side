@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Phonebook.Domain.Interfaces.Repositories;
 using Phonebook.Domain.Interfaces.UnitOfWork;
@@ -7,7 +8,8 @@ using Phonebook.TestTools;
 
 namespace Phonebook.Domain.Tests
 {
-    public class BaseDomainTests
+	[ExcludeFromCodeCoverage]
+	public class BaseDomainTests
 	{
         protected PhonebookTestContext testContext;
         private Mock<IUnitOfWork> _mockUnitofWork;

@@ -5,10 +5,11 @@ using Phonebook.Domain.Model;
 using Phonebook.Domain.Services;
 using System;
 using System.Linq;
-using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Phonebook.Domain.Tests
 {
+	[ExcludeFromCodeCoverage]
 	[TestClass]
 	public class ContactNumberServiceTests : BaseDomainTests
 	{

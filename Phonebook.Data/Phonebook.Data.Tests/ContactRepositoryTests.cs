@@ -3,11 +3,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Phonebook.Data.Context;
 using Phonebook.Domain.Model;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Phonebook.Data.Tests
 {
-    [TestClass]
+	[ExcludeFromCodeCoverage]
+	[TestClass]
 	public class ContactRepositoryTests
 	{
 

@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Phonebook.Data.Migrations
 {
+	[ExcludeFromCodeCoverage]
 	internal sealed class Configuration : DbMigrationsConfiguration<Context.PhonebookContext>
 	{
 		public Configuration()

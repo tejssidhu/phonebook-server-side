@@ -4,14 +4,12 @@ using Phonebook.Data.Context;
 using Phonebook.Domain.Model;
 using System.Collections.Generic;
 using System.Linq;
-using Phonebook.Data.Repositories;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using Phonebook.Data;
+using System.Diagnostics.CodeAnalysis;
 using Phonebook.Domain.Exceptions;
 
 namespace Phonebook.Data.Tests
 {
+	[ExcludeFromCodeCoverage]
 	[TestClass]
 	public class ContatNumberRepositoryTests
 	{

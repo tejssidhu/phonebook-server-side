@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Phonebook.Domain.Interfaces.Repositories;
 using Phonebook.Domain.Interfaces.Services;
@@ -8,7 +9,8 @@ using Phonebook.TestTools;
 
 namespace Phonebook.WebApi.Tests
 {
-    public class BaseApiTests
+	[ExcludeFromCodeCoverage]
+	public class BaseApiTests
     {
         protected PhonebookTestContext testContext;
         private Mock<IUnitOfWork> _mockUnitofWork;
