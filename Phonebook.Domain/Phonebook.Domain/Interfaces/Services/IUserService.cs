@@ -6,7 +6,6 @@ namespace Phonebook.Domain.Interfaces.Services
 {
     public interface IUserService : IService<User>
     {
-        User Authenticate(string username, string password);
         IEnumerable<Contact> GetContacts(Guid userId);
     }
 }
