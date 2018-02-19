@@ -97,7 +97,6 @@ namespace Phonebook.WebApi.Controllers
         [ODataRoute("Users({key})/Phonebook.MyContacts")]
         public IHttpActionResult MyContacts([FromODataUri]Guid key)
         {
-            var result = new List<Contact>();
             var items = _service.GetContacts(key).ToList();
 
             return Ok(items);

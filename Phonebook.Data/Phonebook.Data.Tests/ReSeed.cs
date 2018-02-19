@@ -3,10 +3,12 @@ using Phonebook.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Phonebook.Data.Tests
 {
-    public static class ReSeed
+	[ExcludeFromCodeCoverage]
+	public static class ReSeed
 	{
 		public static void Up(PhonebookContext pbContext)
 		{

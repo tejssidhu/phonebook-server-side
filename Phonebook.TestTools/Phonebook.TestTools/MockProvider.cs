@@ -4,14 +4,14 @@ using Phonebook.Domain.Interfaces.Services;
 using Phonebook.Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Phonebook.TestTools
 {
-    public class MockProvider
+	[ExcludeFromCodeCoverage]
+	public class MockProvider
     {
         public static Mock<IGenericRepository<User>> GetMockUserRepository(List<User> users)
         {

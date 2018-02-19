@@ -4,13 +4,15 @@ using Phonebook.Domain.Model;
 using Phonebook.WebApi.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.OData.Results;
 
 namespace Phonebook.WebApi.Tests
 {
-    [TestClass]
+	[ExcludeFromCodeCoverage]
+	[TestClass]
     public class TestContactNumbersController: BaseApiTests
     {
         [TestMethod]
@@ -55,18 +57,17 @@ namespace Phonebook.WebApi.Tests
         public void PostMethodSetsLocationHeader()
         {
             // Arrange
-            var newGuid = new Guid("9a005b3e-d9ec-4e08-aefa-589ab5e00bfa");
             var newDesc = "Description";
             var controller = new ContactNumbersController(MockContactNumberService.Object);
 
             // Act
-            IHttpActionResult actionResult = controller.Post(new ContactNumber { Id = newGuid, Description = newDesc });
+            IHttpActionResult actionResult = controller.Post(new ContactNumber { Description = newDesc });
             var createdResult = actionResult as CreatedODataResult<ContactNumber>;
 
             // Assert
             Assert.IsNotNull(createdResult);
-            Assert.AreEqual(createdResult.Entity.Id, newGuid);
-            Assert.AreEqual(createdResult.Entity.Description, newDesc);
+	        Assert.IsNotNull(createdResult.Entity.Id);
+			Assert.AreEqual(createdResult.Entity.Description, newDesc);
         }
 
         [TestMethod]

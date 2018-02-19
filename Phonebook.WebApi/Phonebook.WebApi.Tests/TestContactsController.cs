@@ -5,12 +5,14 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using Phonebook.Domain.Model;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Web.OData.Results;
 using Moq;
 
 namespace Phonebook.WebApi.Tests
 {
-    [TestClass]
+	[ExcludeFromCodeCoverage]
+	[TestClass]
     public class TestContactsController : BaseApiTests
     {
         [TestMethod]

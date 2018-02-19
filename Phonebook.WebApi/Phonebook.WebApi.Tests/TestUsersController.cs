@@ -1,17 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Newtonsoft.Json;
 using Phonebook.Domain.Model;
 using Phonebook.WebApi.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.OData.Results;
 
 namespace Phonebook.WebApi.Tests
 {
-    [TestClass]
+	[ExcludeFromCodeCoverage]
+	[TestClass]
     public class TestUsersController : BaseApiTests
     {
         [TestMethod]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Phonebook.Domain.Model;
@@ -7,7 +8,8 @@ using Phonebook.Data.Context;
 
 namespace Phonebook.Data.Tests
 {
-    [TestClass]
+	[ExcludeFromCodeCoverage]
+	[TestClass]
 	public class UserRepositoryTests
 	{
 		private List<User> _users;

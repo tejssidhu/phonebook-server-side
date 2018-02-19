@@ -1,9 +1,11 @@
+using System;
+using System.Data.Entity.Migrations;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Phonebook.Data.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
-    public partial class AddedToken : DbMigration
+	[ExcludeFromCodeCoverage]
+	public partial class AddedToken : DbMigration
     {
         public override void Up()
         {

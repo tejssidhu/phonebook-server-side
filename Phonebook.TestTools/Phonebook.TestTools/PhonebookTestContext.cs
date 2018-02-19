@@ -1,10 +1,12 @@
 ﻿using Phonebook.Domain.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Phonebook.TestTools
 {
-    public class PhonebookTestContext
+	[ExcludeFromCodeCoverage]
+	public class PhonebookTestContext
     {
         public List<User> Users { get; set; }
         public User SingleUser { get; set; }

@@ -47,8 +47,8 @@ namespace Phonebook.WebApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            Guid contactNumberId = _service.Create(entity);
-            entity.Id = contactNumberId;
+	        entity.Id = Guid.NewGuid();
+			_service.Create(entity);
 
             return Created(entity);
         }
