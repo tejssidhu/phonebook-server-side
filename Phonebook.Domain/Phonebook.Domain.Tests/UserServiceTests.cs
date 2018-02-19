@@ -49,50 +49,6 @@ namespace Phonebook.Domain.Tests
 			userService.Dispose();
 		}
 
-		[TestMethod]
-		[ExpectedException(typeof(InvalidPasswordException))]
-		public void AuthenticateWithInvalidPasswordOnUserService()
-		{
-			//arrange
-			UserService userService = new UserService(MockUnitOfWork.Object);
-
-			//act
-			User retUser = userService.Authenticate(testContext.SingleUser.Username, testContext.SingleUser.Password + "WRONG");
-
-			//assert - expect exception
-
-			userService.Dispose();
-		}
-
-		[TestMethod]
-		public void AuthenticateValidPasswordOnUserService()
-		{
-			//arrange
-			UserService userService = new UserService(MockUnitOfWork.Object);
-
-			//act
-			User retUser = userService.Authenticate(testContext.SingleUser.Username, testContext.SingleUser.Password);
-
-			//assert
-			Assert.AreEqual(testContext.SingleUser, retUser);
-
-			userService.Dispose();
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(ObjectNotFoundException))]
-		public void AuthenticateWithNoExistentUserOnUserService()
-		{
-			//arrange
-			UserService userService = new UserService(MockUnitOfWork.Object);
-
-			//act
-			User retUser = userService.Authenticate(testContext.SingleUser.Username + "DOESNTEXIST", testContext.SingleUser.Password);
-
-			//assert - expect exception
-
-			userService.Dispose();
-		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ObjectAlreadyExistException))]
@@ -116,7 +72,6 @@ namespace Phonebook.Domain.Tests
 			User userToCreate = new User
 			{
 				Id = new Guid("0b21d4b6-eb42-456b-9828-a90cb604bceb"),
-				Password = "7BbfOOoMJCf",
 				Username = "igardner8"
 			};
 

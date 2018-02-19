@@ -9,7 +9,6 @@ namespace Phonebook.Data.Context
 		public DbSet<User> Users { get; set; }
 		public DbSet<Contact> Contacts { get; set; }
 		public DbSet<ContactNumber> ContactNumbers { get; set; }
-		public DbSet<Token> Tokens { get; set; }
 		
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{

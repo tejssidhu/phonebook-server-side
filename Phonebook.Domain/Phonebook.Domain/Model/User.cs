@@ -18,11 +18,6 @@ namespace Phonebook.Domain.Model
         [DataMember(Name = "username")]
         public string Username { get; set; }
 		
-		[Required]
-		[MaxLength(100)]
-		[DataType(DataType.Password)]
-        [IgnoreDataMember]
-		public string Password { get; set; }
 
 		//defined as virtual so that they can take advantage of certain Entity Framework functionality such as lazy loading
 		public virtual ICollection<Contact> PhoneBook { get; set; }
@@ -40,19 +35,19 @@ namespace Phonebook.Domain.Model
 
 			User u = (User)obj;
 
-			return (Username == u.Username) && (Password == u.Password);
+			return (Username == u.Username);
 		}
 
 		protected bool Equals(User other)
 		{
-			return string.Equals(Username, other.Username) && string.Equals(Password, other.Password);
+			return string.Equals(Username, other.Username);
 		}
 
 		public override int GetHashCode()
 		{
 			unchecked
 			{
-				return ((Username != null ? Username.GetHashCode() : 0)*397) ^ (Password != null ? Password.GetHashCode() : 0);
+				return ((Username != null ? Username.GetHashCode() : 0)*397);
 			}
 		}
 	}

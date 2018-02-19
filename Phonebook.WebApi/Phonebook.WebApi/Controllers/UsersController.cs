@@ -12,7 +12,8 @@ using System.Web.OData.Routing;
 
 namespace Phonebook.WebApi.Controllers
 {
-    public class UsersController : ODataController
+	[Authorize]
+	public class UsersController : ODataController
     {
         private readonly IUserService _service;
 
@@ -21,7 +22,8 @@ namespace Phonebook.WebApi.Controllers
             _service = service;
         }
 
-        public IHttpActionResult Get()
+		[ScopeAuthorise("phonebookAPI.read")]
+		public IHttpActionResult Get()
         {
             var result = new List<User>();
             var items = _service.GetAll().ToList();
@@ -29,7 +31,8 @@ namespace Phonebook.WebApi.Controllers
             return Ok(items);
         }
 
-        public IHttpActionResult Get([FromODataUri]Guid key)
+		[ScopeAuthorise("phonebookAPI.read")]
+		public IHttpActionResult Get([FromODataUri]Guid key)
         {
             var item = _service.Get(key);
             if (item == null)
@@ -40,35 +43,8 @@ namespace Phonebook.WebApi.Controllers
             return Ok(item);
         }
 
-        [HttpPost]
-        [HttpOptions]
-        [ODataRoute("Authenticate")]
-        public IHttpActionResult Authenticate(ODataActionParameters parameters)
-        {
-            object username;
-            object password;
-            if (!parameters.TryGetValue("username", out username) || !parameters.TryGetValue("password", out password))
-            {
-                return NotFound();
-            }
-            User item;
-            try
-            {
-                item = _service.Authenticate(username.ToString(), password.ToString());
-            }
-            catch (ObjectNotFoundException)
-            {
-                return NotFound();
-            }
-            catch (InvalidPasswordException)
-            {
-                return NotFound();
-            }
-
-            return Ok(item);
-        }
-
-        public IHttpActionResult Post(User entity)
+		[ScopeAuthorise("phonebookAPI.write")]
+		public IHttpActionResult Post(User entity)
         {
             if (!ModelState.IsValid)
             {
@@ -80,7 +56,8 @@ namespace Phonebook.WebApi.Controllers
             return Created(entity);
         }
 
-        public IHttpActionResult Put([FromODataUri] Guid key, User entity)
+		[ScopeAuthorise("phonebookAPI.write")]
+		public IHttpActionResult Put([FromODataUri] Guid key, User entity)
         {
             if (!ModelState.IsValid)
             {
@@ -103,7 +80,8 @@ namespace Phonebook.WebApi.Controllers
             return Ok(entity);
         }
 
-        public IHttpActionResult Delete([FromODataUri] Guid key)
+		[ScopeAuthorise("phonebookAPI.write")]
+		public IHttpActionResult Delete([FromODataUri] Guid key)
         {
             var contact = _service.Get(key);
             if (contact == null)
@@ -114,7 +92,6 @@ namespace Phonebook.WebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-		[Authorize]
 		[ScopeAuthorise("phonebookAPI.read")]
 		[HttpGet]
         [ODataRoute("Users({key})/Phonebook.MyContacts")]

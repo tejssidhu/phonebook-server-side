@@ -23,13 +23,11 @@ namespace Phonebook.Data
 			UserRepository = new GenericRepository<User>(_phonebookContext);
 			ContactRepository = new GenericRepository<Contact>(_phonebookContext);
 			ContactNumberRepository = new ContactNumberRepository(_phonebookContext);
-			TokenRepository = new GenericRepository<Token>(_phonebookContext);
 		}
 
 		public IGenericRepository<User> UserRepository { get; private set; }
 		public IGenericRepository<Contact> ContactRepository { get; private set; }
 		public IContactNumberRepository ContactNumberRepository { get; private set; }
-		public IGenericRepository<Token> TokenRepository { get; private set; }
 
 		public void SaveChanges()
 		{

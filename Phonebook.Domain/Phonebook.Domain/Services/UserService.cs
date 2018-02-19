@@ -34,20 +34,6 @@ namespace Phonebook.Domain.Services
 			return _unitOfWork.UserRepository.Get(id);
         }
 
-        public User Authenticate(string username, string password)
-        {
-            var user = _unitOfWork.UserRepository.GetAll(u => u.Username == username).SingleOrDefault();
-
-            if (user == null) throw new ObjectNotFoundException("User");
-
-            if (user.Password != password.Trim())
-            {
-                throw new InvalidPasswordException();
-            }
-
-            return user;
-        }
-
         public IEnumerable<Contact> GetContacts(Guid userId)
         {
             return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId);
