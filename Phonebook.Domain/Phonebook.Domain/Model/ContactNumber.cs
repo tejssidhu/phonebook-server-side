@@ -2,24 +2,30 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace Phonebook.Domain.Model
 {
+	[DataContract]
 	public class ContactNumber : IEntity
 	{
 		[Required]
+		[DataMember(Name = "id")]
 		public Guid Id { get; set; }
 		
 		[Required]
+		[DataMember(Name = "contactId")]
 		public Guid ContactId { get; set; }
 
 		[Required]
 		[MaxLength(20)]
+		[DataMember(Name = "description")]
 		public string Description { get; set; }
 
 		[Required]
 		[MaxLength(20)]
 		[DisplayName("Telephone Number")]
+		[DataMember(Name = "telephoneNumber")]
 		public string TelephoneNumber { get; set; }
 
 		//defined as virtual so that they can take advantage of certain Entity Framework functionality such as lazy loading

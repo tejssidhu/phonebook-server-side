@@ -49,7 +49,7 @@ namespace Phonebook.WebApi.Controllers
                 return BadRequest(ModelState);
             }
             contact.Id = Guid.NewGuid();
-            Guid contactId = _service.Create(contact);
+            _service.Create(contact);
 
             return Created(contact);
         }
@@ -95,7 +95,6 @@ namespace Phonebook.WebApi.Controllers
         [ODataRoute("Contacts({key})/Phonebook.GetContactNumbers")]
         public IHttpActionResult GetContactNumbers([FromODataUri]Guid key)
         {
-            var result = new List<Contact>();
             var items = _service.GetContactNumbers(key).ToList();
 
             return Ok(items);
