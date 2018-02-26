@@ -16,9 +16,9 @@ namespace Phonebook.Data
 		private readonly PhonebookContext _phonebookContext;
 
         // TODO: use dependency injection instead of manually creating instances
-		public UnitOfWork()
+		public UnitOfWork(PhonebookContext phonebookContext)
 		{
-			_phonebookContext = new PhonebookContext();
+			_phonebookContext = phonebookContext;
 
 			UserRepository = new GenericRepository<User>(_phonebookContext);
 			ContactRepository = new GenericRepository<Contact>(_phonebookContext);

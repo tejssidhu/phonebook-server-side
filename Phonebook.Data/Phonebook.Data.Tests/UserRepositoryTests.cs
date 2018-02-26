@@ -5,6 +5,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Phonebook.Domain.Model;
 using Phonebook.Data.Context;
+using Moq;
+using System.Data.Entity;
 
 namespace Phonebook.Data.Tests
 {
@@ -12,13 +14,14 @@ namespace Phonebook.Data.Tests
 	[TestClass]
 	public class UserRepositoryTests
 	{
-		private List<User> _users;
-		private List<Contact> _contacts;
-		private List<ContactNumber> _contactNumbers;
+		private PhonebookContext phonebookContext;
+		private IQueryable<User> _users;
+		private IQueryable<Contact> _contacts;
+		private IQueryable<ContactNumber> _contactNumbers;
 
 		#region Test Initialise and Cleanup
 		[TestInitialize]
-		public void TestUserServiceTests()
+		public void InitialiseTests()
 		{
 			var user1 = new User { Id = new Guid("7b8ceac1-9fb1-4e15-af4b-890b1f0c3ebf"), Username = "User123" };
 			var user2 = new User { Id = new Guid("5875412f-e8b8-493e-bd58-5df35083342c"), Username = "User456" };
@@ -103,50 +106,77 @@ namespace Phonebook.Data.Tests
 			var contactNumber15 = new ContactNumber { Id = new Guid("d8fc029d-8062-4cc4-ac29-e4339d1b48d3"), ContactId = new Guid("2ae69661-72c6-4e33-a6ec-1ca93152fa80"), Description = "Home", TelephoneNumber = "962216940411" };
 			var contactNumber16 = new ContactNumber { Id = new Guid("0be9339f-706d-4e34-9938-afc76c7e746f"), ContactId = new Guid("2ae69661-72c6-4e33-a6ec-1ca93152fa80"), Description = "Mobile", TelephoneNumber = "641533924552" };
 
-			_users = new List<User> { user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11 };
-			_contacts = new List<Contact> { contact1, contact2, contact3, contact4, contact5, contact6, contact7, contact8, contact9, contact10, contact11, contact12, contact13, contact14, contact15, contact16, contact17, contact18, contact19, contact20, contact21, contact22, contact23, contact24, contact25, contact26, contact27, contact28, contact29, contact31, contact32, contact33, contact34, contact35, contact36, contact37, contact38, contact39, contact40, contact41, contact42, contact43, contact44, contact45, contact46, contact47, contact48, contact49, contact50, contact51, contact52, contact53 };
-			_contactNumbers = new List<ContactNumber> { contactNumber1, contactNumber2, contactNumber3, contactNumber4, contactNumber5, contactNumber6, contactNumber7, contactNumber8, contactNumber9, contactNumber10, contactNumber11, contactNumber12, contactNumber13, contactNumber14, contactNumber15, contactNumber16 };
+			var userList = new List<User> { user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11 };
+			_users = userList.AsQueryable();
+			var contactList = new List<Contact> { contact1, contact2, contact3, contact4, contact5, contact6, contact7, contact8, contact9, contact10, contact11, contact12, contact13, contact14, contact15, contact16, contact17, contact18, contact19, contact20, contact21, contact22, contact23, contact24, contact25, contact26, contact27, contact28, contact29, contact31, contact32, contact33, contact34, contact35, contact36, contact37, contact38, contact39, contact40, contact41, contact42, contact43, contact44, contact45, contact46, contact47, contact48, contact49, contact50, contact51, contact52, contact53 };
+			_contacts = contactList.AsQueryable();
+			var contactNumberList = new List<ContactNumber> { contactNumber1, contactNumber2, contactNumber3, contactNumber4, contactNumber5, contactNumber6, contactNumber7, contactNumber8, contactNumber9, contactNumber10, contactNumber11, contactNumber12, contactNumber13, contactNumber14, contactNumber15, contactNumber16 };
+			_contactNumbers = contactNumberList.AsQueryable();
 
-			PhonebookContext pbContext = new PhonebookContext();
+			var contactNumberSet = new Mock<DbSet<ContactNumber>>();
+			contactNumberSet.As<IQueryable<ContactNumber>>().Setup(m => m.Provider).Returns(_contactNumbers.Provider);
+			contactNumberSet.As<IQueryable<ContactNumber>>().Setup(m => m.Expression).Returns(_contactNumbers.Expression);
+			contactNumberSet.As<IQueryable<ContactNumber>>().Setup(m => m.ElementType).Returns(_contactNumbers.ElementType);
+			contactNumberSet.As<IQueryable<ContactNumber>>().Setup(m => m.GetEnumerator()).Returns(_contactNumbers.GetEnumerator());
+			contactNumberSet.Setup(x => x.Find(It.IsAny<object[]>())).Returns<object[]>(x => (contactNumberList as List<ContactNumber>).FirstOrDefault(y => y.Id == (Guid)x[0]) as ContactNumber);
+			contactNumberSet.Setup(x => x.Add(It.IsAny<ContactNumber>())).Callback<ContactNumber>(contactNumberList.Add);
 
-			ReSeed.Up(pbContext);
+			var contactSet = new Mock<DbSet<Contact>>();
+			contactSet.As<IQueryable<Contact>>().Setup(m => m.Provider).Returns(_contacts.Provider);
+			contactSet.As<IQueryable<Contact>>().Setup(m => m.Expression).Returns(_contacts.Expression);
+			contactSet.As<IQueryable<Contact>>().Setup(m => m.ElementType).Returns(_contacts.ElementType);
+			contactSet.As<IQueryable<Contact>>().Setup(m => m.GetEnumerator()).Returns(_contacts.GetEnumerator());
+			contactSet.Setup(x => x.Find(It.IsAny<object[]>())).Returns<object[]>(x => (contactList as List<Contact>).FirstOrDefault(y => y.Id == (Guid)x[0]) as Contact);
+			contactSet.Setup(x => x.Add(It.IsAny<Contact>())).Callback<Contact>(contactList.Add);
+
+			var userSet = new Mock<DbSet<User>>();
+			userSet.As<IQueryable<User>>().Setup(m => m.Provider).Returns(_users.Provider);
+			userSet.As<IQueryable<User>>().Setup(m => m.Expression).Returns(_users.Expression);
+			userSet.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(_users.ElementType);
+			userSet.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(_users.GetEnumerator());
+			userSet.Setup(x => x.Find(It.IsAny<object[]>())).Returns<object[]>(x => (userList as List<User>).FirstOrDefault(y => y.Id == (Guid)x[0]) as User);
+			userSet.Setup(x => x.Add(It.IsAny<User>())).Callback<User>(userList.Add);
+
+			var pbContext = new Mock<PhonebookContext>();
+			pbContext.Setup(m => m.ContactNumbers).Returns(contactNumberSet.Object);
+			pbContext.Setup(m => m.Contacts).Returns(contactSet.Object);
+			pbContext.Setup(m => m.Users).Returns(userSet.Object);
+			pbContext.Setup(x => x.Set<ContactNumber>()).Returns(contactNumberSet.Object);
+			pbContext.Setup(x => x.Set<Contact>()).Returns(contactSet.Object);
+			pbContext.Setup(x => x.Set<User>()).Returns(userSet.Object);
+			
+			phonebookContext = pbContext.Object;
 		}
 
+        
 		#endregion
 
 		[TestMethod]
 		public void GetAllOnUserRepository()
 		{
 			//Arrange
-			UnitOfWork unitOfWork = new UnitOfWork();
+			UnitOfWork unitOfWork = new UnitOfWork(phonebookContext);
+			var userList = new List<User>(_users.OrderBy(c => c.Username));
 
 			//Act
 			List<User> users = unitOfWork.UserRepository.GetAll().ToList();
 
-			List<User> unProxiedUsers = new List<User>();
-			foreach (var u in users)
-			{
-				unProxiedUsers.Add(UnProxy(u));
-			}
-			_users = _users.OrderBy(c => c.Username).ToList();
-			unProxiedUsers = unProxiedUsers.OrderBy(c => c.Username).ToList();
-			
 			//Assert
-			CollectionAssert.AreEqual(_users, unProxiedUsers);
+			CollectionAssert.AreEqual(userList, users.OrderBy(c => c.Username).ToList());
 		}
 
 		[TestMethod]
 		public void GetOnUserRepository()
 		{
 			//Arrange
-			UnitOfWork unitOfWork = new UnitOfWork();
+			UnitOfWork unitOfWork = new UnitOfWork(phonebookContext);
+			var userList = new List<User>(_users);
 
 			//Act
 			User user = unitOfWork.UserRepository.Get(new Guid("7b8ceac1-9fb1-4e15-af4b-890b1f0c3ebf"));
 
 			//Assert
-			Assert.AreEqual(_users[0], UnProxy(user));
-
+			Assert.AreEqual(userList[0], user);
 			unitOfWork.Dispose();
 		}
 
@@ -154,7 +184,7 @@ namespace Phonebook.Data.Tests
 		public void CreateOnUserRepository()
 		{
 			//Arrange
-			UnitOfWork unitOfWork = new UnitOfWork();
+			UnitOfWork unitOfWork = new UnitOfWork(phonebookContext);
 
 			var userToCreate = new User
 			{
@@ -167,7 +197,6 @@ namespace Phonebook.Data.Tests
 			User user = unitOfWork.UserRepository.Get(userToCreate.Id);
 
 			//Assert
-
 			Assert.AreEqual(UnProxy(user), userToCreate);
 			Assert.IsNotNull(userToCreate.Id);
 		}
@@ -176,9 +205,10 @@ namespace Phonebook.Data.Tests
 		public void UpdateOnUserRepository()
 		{
 			//Arrange
-			UnitOfWork unitOfWork = new UnitOfWork();
+			UnitOfWork unitOfWork = new UnitOfWork(phonebookContext);
+			var userList = new List<User>(_users);
 
-			var userToUpdate = _users[1];
+			var userToUpdate = userList[1];
 
 			//Act
 			unitOfWork.UserRepository.Update(userToUpdate);
@@ -193,9 +223,9 @@ namespace Phonebook.Data.Tests
 		public void DeleteOnUserRepository()
 		{
 			//Arrange
-			UnitOfWork unitOfWork = new UnitOfWork();
-
-			var userToDelete = _users[1];
+			UnitOfWork unitOfWork = new UnitOfWork(phonebookContext);
+			var userList = new List<User>(_users);
+			var userToDelete = userList[1];
 
 			//Act
 			unitOfWork.UserRepository.Delete(userToDelete.Id);
@@ -210,7 +240,7 @@ namespace Phonebook.Data.Tests
 		public void DeleteMultipleOnUserRepository()
 		{
 			//Arrange
-			UnitOfWork unitOfWork = new UnitOfWork();
+			UnitOfWork unitOfWork = new UnitOfWork(phonebookContext);
 
 			//Act
 			unitOfWork.UserRepository.DeleteMany(t => t.Username.Contains("User"));
