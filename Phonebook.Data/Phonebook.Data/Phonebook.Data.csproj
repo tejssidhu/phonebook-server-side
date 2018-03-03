@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\IPhonebookContext.cs" />
     <Compile Include="Context\PhonebookContext.cs" />
     <Compile Include="Migrations\201602180800399_InitialCreate.cs" />
     <Compile Include="Migrations\201602180800399_InitialCreate.Designer.cs">

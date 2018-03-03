@@ -4,19 +4,15 @@ using Phonebook.Domain.Interfaces.Repositories;
 using Phonebook.Domain.Interfaces.UnitOfWork;
 using Phonebook.Domain.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Phonebook.Data
 {
 	public class UnitOfWork : IUnitOfWork, IDisposable
 	{
-		private readonly PhonebookContext _phonebookContext;
+		private readonly IPhonebookContext _phonebookContext;
 
         // TODO: use dependency injection instead of manually creating instances
-		public UnitOfWork(PhonebookContext phonebookContext)
+		public UnitOfWork(IPhonebookContext phonebookContext)
 		{
 			_phonebookContext = phonebookContext;
 

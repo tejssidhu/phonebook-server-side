@@ -12,10 +12,10 @@ namespace Phonebook.Data.Repositories
 {
 	public class ContactNumberRepository : IContactNumberRepository
 	{
-		private readonly PhonebookContext _phonebookContext;
+		private readonly IPhonebookContext _phonebookContext;
 		private DbSet<ContactNumber> dbSet;
 
-		public ContactNumberRepository(PhonebookContext phonebookContext)
+		public ContactNumberRepository(IPhonebookContext phonebookContext)
 		{
 			_phonebookContext = phonebookContext;
 			dbSet = _phonebookContext.Set<ContactNumber>();
@@ -62,7 +62,7 @@ namespace Phonebook.Data.Repositories
 		public void Update(ContactNumber model)
 		{
 			dbSet.Attach(model);
-			_phonebookContext.Entry(model).State = EntityState.Modified;
+			_phonebookContext.SetModified(model);
 		}
 
 		public void Delete(Guid id)
@@ -77,7 +77,7 @@ namespace Phonebook.Data.Repositories
 
 		public void Delete(ContactNumber model)
 		{
-			if (_phonebookContext.Entry(model).State == EntityState.Detached)
+			if (_phonebookContext.GetState(model) == EntityState.Detached)
 			{
 				dbSet.Attach(model);
 			}
