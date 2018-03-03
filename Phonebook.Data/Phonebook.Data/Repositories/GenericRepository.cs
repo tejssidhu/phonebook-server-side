@@ -11,10 +11,10 @@ namespace Phonebook.Data.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IEntity
 	{
-		private readonly PhonebookContext _phonebookContext;
+		private readonly IPhonebookContext _phonebookContext;
 		private DbSet<TEntity> dbSet;
 
-		public GenericRepository(PhonebookContext phonebookContext)
+		public GenericRepository(IPhonebookContext phonebookContext)
 		{
 			_phonebookContext = phonebookContext;
 			dbSet = _phonebookContext.Set<TEntity>();
@@ -61,7 +61,7 @@ namespace Phonebook.Data.Repositories
 		public virtual void Update(TEntity model)
 		{
 			dbSet.Attach(model);
-			_phonebookContext.Entry(model).State = EntityState.Modified;
+			_phonebookContext.SetModified(model);
 		}
 
 		public virtual void Delete(Guid id)
@@ -72,7 +72,7 @@ namespace Phonebook.Data.Repositories
 
 		public virtual void Delete(TEntity entityToDelete)
 		{
-			if (_phonebookContext.Entry(entityToDelete).State == EntityState.Detached)
+			if (_phonebookContext.GetState(entityToDelete) == EntityState.Detached)
 			{
 				dbSet.Attach(entityToDelete);
 			}
