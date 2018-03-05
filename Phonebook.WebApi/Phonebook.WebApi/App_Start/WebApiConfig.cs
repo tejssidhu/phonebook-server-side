@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
+using Phonebook.WebApi.Model;
 
 namespace Phonebook.WebApi
 {
@@ -17,6 +18,7 @@ namespace Phonebook.WebApi
             builder.Namespace = "Phonebook";
             builder.EntitySet<Contact>("Contacts");
             builder.EntitySet<User>("Users");
+	        builder.EntitySet<Ping>("Ping");
 
             var function = builder.EntityType<User>().Function("MyContacts").ReturnsCollectionFromEntitySet<Contact>("Contacts");
 
