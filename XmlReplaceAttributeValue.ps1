@@ -83,10 +83,10 @@ if(![System.IO.File]::Exists($fullPath)){
 }
 else {
     # ensure the found file is an xml file
-    [bool] $isXml = ((Get-Content $fullPath) -as [xml])
-    if (!$isXml) {
-        Write-Host('File: "' + $fullPath + '" is not xml')
-    } else {
+    # [bool] $isXml = ((Get-Content $fullPath) -as [xml])
+    # if (!$isXml) {
+    #    Write-Host('File: "' + $fullPath + '" is not xml')
+    # } else {
         # load the xml file
         [xml] $xml = [xml](Get-Content $fullPath)
         #prepare an xpath string using the passed in parameters
@@ -109,5 +109,5 @@ else {
             [xml] $updateXml = [xml](Get-Content $fullPath)
             WriteXmlToScreen($updateXml)
         }
-    }
+    # }
 }
