@@ -63,6 +63,17 @@ Param(
     [string]$attributeNewValue
 )
 
+function WriteXmlToScreen ([xml]$xml)
+{
+    $StringWriter = New-Object System.IO.StringWriter;
+    $XmlWriter = New-Object System.Xml.XmlTextWriter $StringWriter;
+    $XmlWriter.Formatting = "indented";
+    $xml.WriteTo($XmlWriter);
+    $XmlWriter.Flush();
+    $StringWriter.Flush();
+    Write-Output $StringWriter.ToString();
+}
+
 # get full path using the relative path and the powershell scripts location
 [string] $fullPath = [System.IO.Path]::GetFullPath((Join-Path (Get-Location) $relativeFilePath))
 
@@ -94,6 +105,9 @@ else {
     
             # save the update xml file to original file
             $xml.Save($fullPath)
+
+            [xml] $updateXml = [xml](Get-Content $fullPath)
+            WriteXmlToScreen($updateXml)
         }
     }
 }

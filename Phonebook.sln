@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Domain", "Phonebook.Domain\Phonebook.Domain\Phonebook.Domain.csproj", "{8DB600D8-61B6-44D4-8D17-B3C07AAE6D5F}"
 EndProject
@@ -18,6 +18,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Data.Tests", "Phonebook.Data\Phonebook.Data.Tests\Phonebook.Data.Tests.csproj", "{8FC528D9-FEAA-4097-AE3B-B9300EFD14C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.TestTools", "Phonebook.TestTools\Phonebook.TestTools\Phonebook.TestTools.csproj", "{BD788B11-ACE9-4BC5-80BD-88680EE2C224}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C0B43B28-4F47-47D1-A99B-838198FDAF75}"
+	ProjectSection(SolutionItems) = preProject
+		XmlReplaceAttributeValue.ps1 = XmlReplaceAttributeValue.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
