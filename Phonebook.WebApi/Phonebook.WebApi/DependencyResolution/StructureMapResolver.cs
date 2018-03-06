@@ -9,64 +9,64 @@ using StructureMap;
 
 namespace Phonebook.WebApi.DependencyResolution
 {
-    public class StructureMapDependencyScope : IDependencyScope
-    {
-        private IContainer container;
+	public class StructureMapDependencyScope : IDependencyScope
+	{
+		private IContainer container;
 
-        public StructureMapDependencyScope(IContainer container)
-        {
-            if (container == null)
-                throw new ArgumentNullException("container");
+		public StructureMapDependencyScope(IContainer container)
+		{
+			if (container == null)
+				throw new ArgumentNullException("container");
 
-            this.container = container;
-        }
+			this.container = container;
+		}
 
-        public object GetService(Type serviceType)
-        {
-            if (container == null)
-                throw new ObjectDisposedException("this", "This scope has already been disposed.");
+		public object GetService(Type serviceType)
+		{
+			if (container == null)
+				throw new ObjectDisposedException("this", "This scope has already been disposed.");
 
-            return container.TryGetInstance(serviceType);
-        }
+			return container.TryGetInstance(serviceType);
+		}
 
-        public IEnumerable<object> GetServices(Type serviceType)
-        {
-            if (container == null)
-                throw new ObjectDisposedException("this", "This scope has already been disposed.");
+		public IEnumerable<object> GetServices(Type serviceType)
+		{
+			if (container == null)
+				throw new ObjectDisposedException("this", "This scope has already been disposed.");
 
-            return container.GetAllInstances(serviceType).Cast<object>();
-        }
+			return container.GetAllInstances(serviceType).Cast<object>();
+		}
 
-        public void Dispose()
-        {
-            container = null;
-        }
-    }
+		public void Dispose()
+		{
+			container = null;
+		}
+	}
 
-    public class StructureMapResolver : StructureMapDependencyScope, IDependencyResolver, IHttpControllerActivator
-    {
-        private readonly IContainer container;
+	public class StructureMapResolver : StructureMapDependencyScope, IDependencyResolver, IHttpControllerActivator
+	{
+		private readonly IContainer container;
 
-        public StructureMapResolver(IContainer container)
-            : base(container)
-        {
-            if (container == null)
-                throw new ArgumentNullException("container");
+		public StructureMapResolver(IContainer container)
+			: base(container)
+		{
+			if (container == null)
+				throw new ArgumentNullException("container");
 
-            this.container = container;
+			this.container = container;
 
-            this.container.Inject(typeof(IHttpControllerActivator), this);
-        }
+			this.container.Inject(typeof(IHttpControllerActivator), this);
+		}
 
-        public IDependencyScope BeginScope()
-        {
-            return new StructureMapDependencyScope(container.GetNestedContainer());
-        }
+		public IDependencyScope BeginScope()
+		{
+			return new StructureMapDependencyScope(container.GetNestedContainer());
+		}
 
-        public IHttpController Create(HttpRequestMessage request, HttpControllerDescriptor controllerDescriptor, Type controllerType)
-        {
-            return container.GetNestedContainer().GetInstance(controllerType) as IHttpController;
-        }
-    }
+		public IHttpController Create(HttpRequestMessage request, HttpControllerDescriptor controllerDescriptor, Type controllerType)
+		{
+			return container.GetNestedContainer().GetInstance(controllerType) as IHttpController;
+		}
+	}
 
 }

@@ -1,8 +1,11 @@
-﻿using Microsoft.Owin.Security;
+﻿using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using Owin;
+using Phonebook.WebApi.App_Start;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
+[assembly: OwinStartup(typeof(Phonebook.WebApi.Startup))]
 namespace Phonebook.WebApi
 {
 	public class Startup
@@ -26,6 +29,12 @@ namespace Phonebook.WebApi
 			});
 
 			app.UseWebApi(config);
+
+			app.Run(context =>
+			{
+				context.Response.ContentType = "text/plain";
+				return context.Response.WriteAsync("Hello, world.");
+			});
 		}
 	}
 }

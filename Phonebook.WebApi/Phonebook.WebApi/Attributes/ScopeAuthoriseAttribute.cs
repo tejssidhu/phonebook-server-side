@@ -8,8 +8,8 @@ using System.Web.Http.Controllers;
 
 namespace Phonebook.WebApi.Attributes
 {
-    public class ScopeAuthoriseAttribute : System.Web.Http.AuthorizeAttribute
-    {
+	public class ScopeAuthoriseAttribute : System.Web.Http.AuthorizeAttribute
+	{
 		string[] _scopes;
 		static string _scopeClaimType = "scope";
 

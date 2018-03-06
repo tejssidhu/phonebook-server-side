@@ -4,36 +4,36 @@ using System.Web.OData.Builder;
 using System.Web.OData.Extensions;
 using Phonebook.WebApi.Model;
 
-namespace Phonebook.WebApi
+namespace Phonebook.WebApi.App_Start
 {
-    public static class WebApiConfig
-    {
-        public static void Register(HttpConfiguration config)
-        {   
-            // Web API routes
-            config.MapHttpAttributeRoutes();
-            
-            // Web API configuration and services
-            ODataModelBuilder builder = new ODataConventionModelBuilder();
-            builder.Namespace = "Phonebook";
-            builder.EntitySet<Contact>("Contacts");
-            builder.EntitySet<User>("Users");
-	        builder.EntitySet<Ping>("Ping");
+	public static class WebApiConfig
+	{
+		public static void Register(HttpConfiguration config)
+		{
+			// Web API routes
+			config.MapHttpAttributeRoutes();
 
-            var function = builder.EntityType<User>().Function("MyContacts").ReturnsCollectionFromEntitySet<Contact>("Contacts");
+			// Web API configuration and services
+			ODataModelBuilder builder = new ODataConventionModelBuilder();
+			builder.Namespace = "Phonebook";
+			builder.EntitySet<Contact>("Contacts");
+			builder.EntitySet<User>("Users");
+			builder.EntitySet<Ping>("Ping");
 
-            var action = builder.Action("Authenticate");
-            action.Parameter<string>("username");
-            action.Parameter<string>("password");
-            action.ReturnsFromEntitySet<User>("User");
+			var function = builder.EntityType<User>().Function("MyContacts").ReturnsCollectionFromEntitySet<Contact>("Contacts");
 
-            var function3 = builder.EntityType<Contact>().Function("GetContactNumbers").ReturnsCollectionFromEntitySet<ContactNumber>("ContactNumbers");
+			var action = builder.Action("Authenticate");
+			action.Parameter<string>("username");
+			action.Parameter<string>("password");
+			action.ReturnsFromEntitySet<User>("User");
 
-            config.MapODataServiceRoute(
-                routeName: "ODataRoute",
-                routePrefix: null,
-                model: builder.GetEdmModel()
-                );
-        }
-    }
+			var function3 = builder.EntityType<Contact>().Function("GetContactNumbers").ReturnsCollectionFromEntitySet<ContactNumber>("ContactNumbers");
+
+			config.MapODataServiceRoute(
+				routeName: "ODataRoute",
+				routePrefix: null,
+				model: builder.GetEdmModel()
+				);
+		}
+	}
 }

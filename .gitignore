@@ -35,3 +35,6 @@
 /Phonebook/obj/Debug
 /Phonebook
 /TestResults/8f2b3516-e05d-4045-ab1d-77b1a385c71d
+/Phonebook.WebApi/bin
+/Phonebook.WebApi/obj/Debug
+/Phonebook.WebApi/Phonebook.WebApi.csproj.user
