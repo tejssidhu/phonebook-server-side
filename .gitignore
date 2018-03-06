@@ -38,3 +38,6 @@
 /Phonebook.WebApi/bin
 /Phonebook.WebApi/obj/Debug
 /Phonebook.WebApi/Phonebook.WebApi.csproj.user
+/Phonebook.Domain/Phonebook.Domain/bin/Release
+/Phonebook.Data/Phonebook.Data/bin/Release
+/Phonebook.WebApi/Phonebook.WebApi/Properties/PublishProfiles
