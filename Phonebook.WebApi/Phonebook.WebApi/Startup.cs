@@ -2,6 +2,7 @@
 using Microsoft.Owin.Security;
 using Owin;
 using Phonebook.WebApi.App_Start;
+using System.Configuration;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -21,10 +22,12 @@ namespace Phonebook.WebApi
 			var cors = new EnableCorsAttribute("*", "*", "*");
 			config.EnableCors(cors);
 
+			var identityServerUrl = ConfigurationManager.AppSettings.Get("identityServerUrl");
+
 			app.UseIdentityServerBearerTokenAuthentication(new IdentityServer3.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions
 			{
 				AuthenticationMode = AuthenticationMode.Active,
-				Authority = "https://localhost:44301",
+				Authority = identityServerUrl,
 				RequiredScopes = new[] { "phonebookAPI.read", "phonebookAPI.write" }
 			});
 
