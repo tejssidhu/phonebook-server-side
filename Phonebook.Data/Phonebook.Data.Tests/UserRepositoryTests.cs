@@ -33,7 +33,7 @@ namespace Phonebook.Data.Tests
 			var userList = new List<User>(_users);
 
 			//Act
-			User user = unitOfWork.UserRepository.Get(new Guid("7b8ceac1-9fb1-4e15-af4b-890b1f0c3ebf"));
+			User user = unitOfWork.UserRepository.Get(new Guid("7b8ceac1-9fb1-4e15-af4b-890b1f0c3ebf")).FirstOrDefault();
 
 			//Assert
 			Assert.AreEqual(userList[0], user);
@@ -54,7 +54,7 @@ namespace Phonebook.Data.Tests
 			//Act
 			unitOfWork.UserRepository.Create(userToCreate);
 			unitOfWork.SaveChanges();
-			User user = unitOfWork.UserRepository.Get(userToCreate.Id);
+			User user = unitOfWork.UserRepository.Get(userToCreate.Id).FirstOrDefault();
 
 			//Assert
 			Assert.AreEqual(UnProxy(user), userToCreate);
@@ -73,7 +73,7 @@ namespace Phonebook.Data.Tests
 			//Act
 			unitOfWork.UserRepository.Update(userToUpdate);
 			unitOfWork.SaveChanges();
-			User user = unitOfWork.UserRepository.Get(userToUpdate.Id);
+			User user = unitOfWork.UserRepository.Get(userToUpdate.Id).FirstOrDefault();
 
 			//Assert
 			Assert.AreEqual(UnProxy(user), userToUpdate);
@@ -90,7 +90,7 @@ namespace Phonebook.Data.Tests
 			//Act
 			unitOfWork.UserRepository.Delete(userToDelete.Id);
 			unitOfWork.SaveChanges();
-			User user = unitOfWork.UserRepository.Get(userToDelete.Id);
+			User user = unitOfWork.UserRepository.Get(userToDelete.Id).FirstOrDefault();
 
 			//Assert
 			Assert.IsNull(user);

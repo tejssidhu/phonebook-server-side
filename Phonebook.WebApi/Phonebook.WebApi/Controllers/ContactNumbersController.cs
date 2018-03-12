@@ -19,25 +19,17 @@ namespace Phonebook.WebApi.Controllers
 			_service = service;
 		}
 
+		[EnableQuery(PageSize = 10)]
 		[ScopeAuthorise("phonebookAPI.read")]
-		public IHttpActionResult Get()
+		public IQueryable<ContactNumber> Get()
 		{
-			var result = new List<ContactNumber>();
-			var items = _service.GetAll().ToList();
-
-			return Ok(items);
+			return _service.GetAll();
 		}
 
 		[ScopeAuthorise("phonebookAPI.read")]
-		public IHttpActionResult Get([FromODataUri]Guid key)
+		public SingleResult<ContactNumber> Get([FromODataUri]Guid key)
 		{
-			var item = _service.Get(key);
-			if (item == null)
-			{
-				return NotFound();
-			}
-
-			return Ok(item);
+			return SingleResult.Create(_service.Get(key));
 		}
 
 		[ScopeAuthorise("phonebookAPI.write")]
@@ -80,11 +72,12 @@ namespace Phonebook.WebApi.Controllers
 		[ScopeAuthorise("phonebookAPI.write")]
 		public IHttpActionResult Delete([FromODataUri] Guid key)
 		{
-			var ContactNumber = _service.Get(key);
-			if (ContactNumber == null)
+			var contactNumber = _service.Get(key).FirstOrDefault();
+			if (contactNumber == null)
 			{
 				return NotFound();
 			}
+
 			_service.Delete(key);
 			return StatusCode(System.Net.HttpStatusCode.NoContent);
 		}

@@ -7,8 +7,8 @@ namespace Phonebook.Domain.Interfaces.Services
 {
 	public interface IService<TEntity> : IDisposable where TEntity : IEntity
 	{
-		IEnumerable<TEntity> GetAll();
-		TEntity Get(Guid id);
+		IQueryable<TEntity> GetAll();
+		IQueryable<TEntity> Get(Guid id);
 		Guid Create(TEntity model);
 		void Update(TEntity model);
 		void Delete(Guid id);

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Web.OData.Results;
 using Moq;
+using System.Linq;
 
 namespace Phonebook.WebApi.Tests
 {
@@ -20,12 +21,11 @@ namespace Phonebook.WebApi.Tests
         {
             ContactsController controller = new ContactsController(MockContactService.Object);
 
-            IHttpActionResult response = controller.Get();
-            var contentResult = response as OkNegotiatedContentResult<List<Contact>>;
+            var response = controller.Get();
+			var results = response.ToList();
 
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
-            Assert.AreEqual(52, contentResult.Content.Count);
+			Assert.IsNotNull(results);
+			Assert.AreEqual(52, results.Count);
         }
 
         [TestMethod]
@@ -34,13 +34,11 @@ namespace Phonebook.WebApi.Tests
             var guidOfExistingContact = new Guid("cc772bf2-40bd-4b25-9e3a-0e80b1a63383");
             ContactsController controller = new ContactsController(MockContactService.Object);
 
-            IHttpActionResult response = controller.Get(guidOfExistingContact);
-            var contentResult = response as OkNegotiatedContentResult<Contact>;
+			SingleResult<Contact> response = controller.Get(guidOfExistingContact);
+			var contact = (response.Queryable).FirstOrDefault();
 
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
-            Assert.AreEqual(guidOfExistingContact, contentResult.Content.Id);
-        }
+			Assert.AreEqual(guidOfExistingContact, contact.Id);
+		}
 
         [TestMethod]
         public void GetContactThatDoesntExistReturnsNotFound()
@@ -48,10 +46,11 @@ namespace Phonebook.WebApi.Tests
             var guidOfContact = new Guid("b224a9a9-f02f-4403-ba6c-fb05951ede65");
             ContactsController controller = new ContactsController(MockContactService.Object);
 
-            IHttpActionResult response = controller.Get(guidOfContact);
+			SingleResult<Contact> response = controller.Get(guidOfContact);
+			var contact = (response.Queryable).FirstOrDefault();
 
-            Assert.IsInstanceOfType(response, typeof(NotFoundResult));
-        }
+			Assert.IsNull(contact);
+		}
 
         [TestMethod]
         public void PostMethodSetsLocationHeader()
@@ -86,7 +85,6 @@ namespace Phonebook.WebApi.Tests
             // Assert
             Assert.IsNotNull(createdResult);
         }
-              
 
         [TestMethod]
         public void PutReturnsContentResult()
@@ -174,5 +172,18 @@ namespace Phonebook.WebApi.Tests
 
             Assert.IsInstanceOfType(response, typeof(NotFoundResult));
         }
-    }
+
+		[TestMethod]
+		public void GetContactNumbersByContactId()
+		{
+			var guidOfExistingUser = new Guid("cc772bf2-40bd-4b25-9e3a-0e80b1a63383");
+			var controller = new ContactsController(MockContactService.Object);
+
+			var response = controller.GetContactNumbers(guidOfExistingUser);
+			var results = response.ToList();
+
+			Assert.IsNotNull(results);
+			Assert.AreEqual(2, results.Count);
+		}
+	}
 }

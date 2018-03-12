@@ -23,12 +23,12 @@ namespace Phonebook.Domain.Services
         }
 
         #region Get methods
-        public IEnumerable<ContactNumber> GetAll()
+        public IQueryable<ContactNumber> GetAll()
 		{
 			return _unitOfWork.ContactNumberRepository.GetAll();
 		}
 
-		public ContactNumber Get(Guid id)
+		public IQueryable<ContactNumber> Get(Guid id)
 		{
 			return _unitOfWork.ContactNumberRepository.Get(id);
 		}
@@ -37,7 +37,7 @@ namespace Phonebook.Domain.Services
         #region Create, update and delete method
         public Guid Create(ContactNumber model)
 		{
-			var contact = _unitOfWork.ContactRepository.Get(model.ContactId);
+			var contact = _unitOfWork.ContactRepository.Get(model.ContactId).FirstOrDefault();
 
 			if (contact == null) throw new ObjectNotFoundException("Contact");
 

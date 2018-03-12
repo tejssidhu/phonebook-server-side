@@ -24,43 +24,21 @@ namespace Phonebook.Domain.Services
         }
 
         #region Get methods
-        public IEnumerable<Contact> GetAll()
+        public IQueryable<Contact> GetAll()
 		{
 			return _unitOfWork.ContactRepository.GetAll();
 		}
 
-		public Contact Get(Guid id)
+		public IQueryable<Contact> Get(Guid id)
 		{
 			return _unitOfWork.ContactRepository.Get(id);
 		}
+		#endregion
 
-        public IEnumerable<Contact> SearchContactsByName(Guid userId, string forename, string surname)
-        {
-            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && x.Forename.Contains(forename) && x.Surname.Contains(surname));
-        }
-
-        public IEnumerable<Contact> SearchContactsByEmail(Guid userId, string email)
-        {
-            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && x.Email.Contains(email));
-        }
-
-        public IEnumerable<Contact> Search(Guid userId, string name, string email)
-        {
-            name = String.IsNullOrEmpty(name) ? "" : name;
-            email = String.IsNullOrEmpty(email) ? "" : email;
-            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId && (x.Forename + " " + x.Surname).Contains(name) && x.Email.Contains(email));
-        }
-
-        public IEnumerable<ContactNumber> GetContactNumbers(Guid contactId)
-        {
-            return _unitOfWork.ContactNumberRepository.GetAll(x => x.ContactId == contactId);
-        }
-        #endregion
-
-        #region Create, update and delete method
-        public Guid Create(Contact model)
+		#region Create, update and delete method
+		public Guid Create(Contact model)
 		{
-			var user = _unitOfWork.UserRepository.Get(model.UserId);
+			var user = _unitOfWork.UserRepository.Get(model.UserId).FirstOrDefault();
 
 			if (user == null) throw new ObjectNotFoundException("User");
 

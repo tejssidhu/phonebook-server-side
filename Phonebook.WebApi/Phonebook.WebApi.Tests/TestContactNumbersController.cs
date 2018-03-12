@@ -5,6 +5,7 @@ using Phonebook.WebApi.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.OData.Results;
@@ -20,13 +21,12 @@ namespace Phonebook.WebApi.Tests
         {
             ContactNumbersController controller = new ContactNumbersController(MockContactNumberService.Object);
 
-            IHttpActionResult response = controller.Get();
-            var contentResult = response as OkNegotiatedContentResult<List<ContactNumber>>;
+            var response = controller.Get();
+			var results = response.ToList();
 
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
-            Assert.AreEqual(16, contentResult.Content.Count);
-        }
+			Assert.IsNotNull(results);
+			Assert.AreEqual(16, results.Count);
+		}
 
         [TestMethod]
         public void GetExistingContactNumberReturnsContactNumber()
@@ -34,24 +34,23 @@ namespace Phonebook.WebApi.Tests
             var guidOfExisting = new Guid("9a005b3e-d9ec-4e08-aefa-589ab5e00bfa");
             ContactNumbersController controller = new ContactNumbersController(MockContactNumberService.Object);
 
-            IHttpActionResult response = controller.Get(guidOfExisting);
-            var contentResult = response as OkNegotiatedContentResult<ContactNumber>;
+			SingleResult<ContactNumber> response = controller.Get(guidOfExisting);
+			var contactNumber = (response.Queryable).FirstOrDefault();
 
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
-            Assert.AreEqual(guidOfExisting, contentResult.Content.Id);
+			Assert.AreEqual(guidOfExisting, contactNumber.Id);
         }
 
         [TestMethod]
-        public void GetContactNumberThatDoesntExistReturnsNotFound()
+        public void GetContactNumberThatDoesntExistReturnsNull()
         {
             var guid = new Guid("b224a9a9-f02f-4403-ba6c-fb05951ede65");
             ContactNumbersController controller = new ContactNumbersController(MockContactNumberService.Object);
 
-            IHttpActionResult response = controller.Get(guid);
+			SingleResult<ContactNumber> response = controller.Get(guid);
+			var contactNumber = (response.Queryable).FirstOrDefault();
 
-            Assert.IsInstanceOfType(response, typeof(NotFoundResult));
-        }
+			Assert.IsNull(contactNumber);
+		}
 
         [TestMethod]
         public void PostMethodSetsLocationHeader()

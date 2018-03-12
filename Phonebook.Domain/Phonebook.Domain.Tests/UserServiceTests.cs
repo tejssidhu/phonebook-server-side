@@ -41,14 +41,13 @@ namespace Phonebook.Domain.Tests
 			UserService userService = new UserService(MockUnitOfWork.Object);
 
 			//act
-			User retUser = userService.Get(id);
+			User retUser = userService.Get(id).FirstOrDefault();
 
 			//assert
 			Assert.AreEqual(testContext.SingleUser, retUser);
 
 			userService.Dispose();
 		}
-
 
 		[TestMethod]
 		[ExpectedException(typeof(ObjectAlreadyExistException))]

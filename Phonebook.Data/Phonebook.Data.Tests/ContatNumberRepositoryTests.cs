@@ -43,7 +43,7 @@ namespace Phonebook.Data.Tests
 			var contactNumbersList = new List<ContactNumber>(_contactNumbers);
 
 			//Act
-			ContactNumber contactNumber = unitOfWork.ContactNumberRepository.Get(new Guid("9a005b3e-d9ec-4e08-aefa-589ab5e00bfa"));
+			ContactNumber contactNumber = unitOfWork.ContactNumberRepository.Get(new Guid("9a005b3e-d9ec-4e08-aefa-589ab5e00bfa")).FirstOrDefault();
 
 			//Assert
 			Assert.AreEqual(contactNumbersList[0], UnProxy(contactNumber));
@@ -67,7 +67,7 @@ namespace Phonebook.Data.Tests
 			//Act
 			unitOfWork.ContactNumberRepository.Create(contactNumberToCreate);
 			unitOfWork.SaveChanges();
-			ContactNumber contactNumber = unitOfWork.ContactNumberRepository.Get(contactNumberToCreate.Id);
+			ContactNumber contactNumber = unitOfWork.ContactNumberRepository.Get(contactNumberToCreate.Id).FirstOrDefault();
 
 			//Assert
 			Assert.AreEqual(UnProxy(contactNumber), contactNumberToCreate);
@@ -90,7 +90,7 @@ namespace Phonebook.Data.Tests
 			//Act
 			unitOfWork.ContactNumberRepository.Update(contactNumberToUpdate);
 			unitOfWork.SaveChanges();
-			ContactNumber contactNumber = unitOfWork.ContactNumberRepository.Get(contactNumberToUpdate.Id);
+			ContactNumber contactNumber = unitOfWork.ContactNumberRepository.Get(contactNumberToUpdate.Id).FirstOrDefault();
 			
 			//Assert
 			Assert.AreEqual(UnProxy(contactNumber), contactNumberToUpdate);
@@ -122,7 +122,7 @@ namespace Phonebook.Data.Tests
 			//Act
 			unitOfWork.ContactNumberRepository.Delete(contactNumberToDelete.Id);
 			unitOfWork.SaveChanges();
-			ContactNumber contactNumber = unitOfWork.ContactNumberRepository.Get(contactNumberToDelete.Id);
+			ContactNumber contactNumber = unitOfWork.ContactNumberRepository.Get(contactNumberToDelete.Id).FirstOrDefault();
 
 			//Assert
 			Assert.IsNull(contactNumber);
@@ -139,7 +139,7 @@ namespace Phonebook.Data.Tests
 			//Act
 			unitOfWork.ContactNumberRepository.DeleteContactNumbersByContactId(contactNumberToDelete.ContactId);
 			unitOfWork.SaveChanges();
-			int numOfContactNumbers = unitOfWork.ContactRepository.Get(contactNumberToDelete.ContactId).ContactNumbers.Count;
+			int numOfContactNumbers = unitOfWork.ContactRepository.Get(contactNumberToDelete.ContactId).FirstOrDefault().ContactNumbers.Count;
 
 			//Assert
 			Assert.AreEqual(0, numOfContactNumbers);

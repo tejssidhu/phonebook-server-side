@@ -20,7 +20,7 @@ namespace Phonebook.Data.Repositories
 			dbSet = _phonebookContext.Set<TEntity>();
 		}
 
-		public virtual IEnumerable<TEntity> GetAll(
+		public virtual IQueryable<TEntity> GetAll(
 		  Expression<Func<TEntity, bool>> filter = null,
 		  Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
 		  string includeProperties = "")
@@ -40,17 +40,17 @@ namespace Phonebook.Data.Repositories
 
 			if (orderBy != null)
 			{
-				return orderBy(query).ToList();
+				return orderBy(query);
 			}
 			else
 			{
-				return query.ToList();
+				return query;
 			}
 		}
 
-		public virtual TEntity Get(Guid id)
+		public virtual IQueryable<TEntity> Get(Guid id)
 		{
-			return dbSet.Find(id);
+			return dbSet.Where(e => e.Id == id);
 		}
 
 		public virtual void Create(TEntity model)
@@ -82,7 +82,7 @@ namespace Phonebook.Data.Repositories
 
 		public virtual void DeleteMany(Expression<Func<TEntity, bool>> filter)
 		{
-			var itemsToDelete = GetAll(filter);
+			var itemsToDelete = GetAll(filter).ToList();
 
 			foreach (var item in itemsToDelete)
 			{

@@ -21,7 +21,7 @@ namespace Phonebook.Data.Repositories
 			dbSet = _phonebookContext.Set<ContactNumber>();
 		}
 
-		public IEnumerable<ContactNumber> GetAll(
+		public IQueryable<ContactNumber> GetAll(
 		  Expression<Func<ContactNumber, bool>> filter = null,
 		  Func<IQueryable<ContactNumber>, IOrderedQueryable<ContactNumber>> orderBy = null,
 		  string includeProperties = "")
@@ -41,17 +41,17 @@ namespace Phonebook.Data.Repositories
 
 			if (orderBy != null)
 			{
-				return orderBy(query).ToList();
+				return orderBy(query);
 			}
 			else
 			{
-				return query.ToList();
+				return query;
 			}
 		}
 
-		public ContactNumber Get(Guid id)
+		public IQueryable<ContactNumber> Get(Guid id)
 		{
-			return dbSet.Find(id);
+			return dbSet.Where(e => e.Id == id);
 		}
 
 		public void Create(ContactNumber model)

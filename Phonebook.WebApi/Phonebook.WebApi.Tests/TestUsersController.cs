@@ -5,6 +5,7 @@ using Phonebook.WebApi.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.OData.Results;
@@ -20,12 +21,11 @@ namespace Phonebook.WebApi.Tests
         {
             UsersController controller = new UsersController(MockUserService.Object);
 
-            IHttpActionResult response = controller.Get();
-            var contentResult = response as OkNegotiatedContentResult<List<User>>;
+            var response = controller.Get();
+			var results = response.ToList();
 
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
-            Assert.AreEqual(11, contentResult.Content.Count);
+            Assert.IsNotNull(results);
+            Assert.AreEqual(11, results.Count);
         }
         
         [TestMethod]
@@ -34,13 +34,11 @@ namespace Phonebook.WebApi.Tests
             var guidOfExisting = new Guid("7b8ceac1-9fb1-4e15-af4b-890b1f0c3ebf");
             UsersController controller = new UsersController(MockUserService.Object);
 
-            IHttpActionResult response = controller.Get(guidOfExisting);
-            var contentResult = response as OkNegotiatedContentResult<User>;
+            SingleResult<User> response = controller.Get(guidOfExisting);
+			var user = (response.Queryable).FirstOrDefault();
 
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
-            Assert.AreEqual(guidOfExisting, contentResult.Content.Id);
-        }
+			Assert.AreEqual(guidOfExisting, user.Id);
+		}
 
         [TestMethod]
         public void GetUserThatDoesntExistReturnsNotFound()
@@ -48,9 +46,10 @@ namespace Phonebook.WebApi.Tests
             var guid = new Guid("b224a9a9-f02f-4403-ba6c-fb05951ede65");
             UsersController controller = new UsersController(MockUserService.Object);
 
-            IHttpActionResult response = controller.Get(guid);
+            SingleResult<User> response = controller.Get(guid);
+			var user = (response.Queryable).FirstOrDefault();
 
-            Assert.IsInstanceOfType(response, typeof(NotFoundResult));
+			Assert.IsNull(user);
         }
         
         [TestMethod]
@@ -87,7 +86,6 @@ namespace Phonebook.WebApi.Tests
             // Assert
             Assert.IsNotNull(createdResult);
         }
-
 
         [TestMethod]
         public void PutReturnsContentResult()
@@ -181,49 +179,17 @@ namespace Phonebook.WebApi.Tests
             Assert.IsInstanceOfType(response, typeof(NotFoundResult));
         }
 
-        //TODO: fix this test
-        //[TestMethod]
-        //public void GetContactsByUserId()
-        //{
-        //    var guidOfExistingUser = new Guid("5875412f-e8b8-493e-bd58-5df35083342c");
-        //    var controller = new UsersController(MockUserService.Object);
+		[TestMethod]
+		public void GetContactsByUserId()
+		{
+			var guidOfExistingUser = new Guid("5875412f-e8b8-493e-bd58-5df35083342c");
+			var controller = new UsersController(MockUserService.Object);
 
-        //    var response = controller.MyContacts(guidOfExistingUser);
-        //    var contentResult = response as OkNegotiatedContentResult<List<Contact>>;
+			var response = controller.GetContacts(guidOfExistingUser);
+			var results = response.ToList();
 
-        //    Assert.IsNotNull(contentResult);
-        //    Assert.IsNotNull(contentResult.Content);
-        //    Assert.AreEqual(11, contentResult.Content.Count);
-        //}
-
-        //[TestMethod]
-        //public void AuthenticateReturnsUser()
-        //{
-        //    var username = "mblack3";
-        //    var password = "MsNDnRy1";
-        //    UsersController controller = new UsersController(MockUserService.Object);
-
-        //    IHttpActionResult response = controller.Authenticate(username, password);
-        //    var contentResult = response as OkNegotiatedContentResult<User>;
-
-        //    Assert.IsNotNull(contentResult);
-        //    Assert.IsNotNull(contentResult.Content);
-        //    Assert.AreEqual(new Guid("2B3B4D72-1C15-40E0-A05A-012B724950C3"), contentResult.Content.Id);
-        //}
-
-        //[TestMethod]
-        //public void AuthenticateReturnsNotFound()
-        //{
-        //    var username = "fgd";
-        //    var password = "fdgdf";
-        //    UsersController controller = new UsersController(MockUserService.Object);
-
-        //    IHttpActionResult response = controller.Authenticate(username, password);
-        //    var contentResult = response as NotFoundResult;
-
-        //    Assert.IsNotNull(contentResult);
-        //}
-
-
-    }
+			Assert.IsNotNull(results);
+			Assert.AreEqual(4, results.Count);
+		}
+	}
 }

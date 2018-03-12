@@ -44,7 +44,7 @@ namespace Phonebook.Data.Tests
 			var contactsList = new List<Contact>(_contacts);
 
 			//Act
-			Contact contact = unitOfWork.ContactRepository.Get(new Guid("81c4763c-b225-4756-903a-750064167813"));
+			Contact contact = unitOfWork.ContactRepository.Get(new Guid("81c4763c-b225-4756-903a-750064167813")).FirstOrDefault();
 
 			contact = UnProxy(contact);
 
@@ -74,7 +74,7 @@ namespace Phonebook.Data.Tests
 			unitOfWork.ContactRepository.Create(contactToCreate);
 			unitOfWork.SaveChanges();
 
-			Contact contact = unitOfWork.ContactRepository.Get(contactToCreate.Id);
+			Contact contact = unitOfWork.ContactRepository.Get(contactToCreate.Id).FirstOrDefault();
 
 			//Assert
 			Assert.AreEqual(contact, contactToCreate);
@@ -100,7 +100,7 @@ namespace Phonebook.Data.Tests
 			unitOfWork.ContactRepository.Update(contactToUpdate);
 			unitOfWork.SaveChanges();
 
-			Contact contact = unitOfWork.ContactRepository.Get(contactToUpdate.Id);
+			Contact contact = unitOfWork.ContactRepository.Get(contactToUpdate.Id).FirstOrDefault();
 
 			contact = UnProxy(contact);
 

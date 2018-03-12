@@ -20,11 +20,11 @@ namespace Phonebook.TestTools
             mockUserRepository.Setup(x => x.Get(
                             It.IsAny<Guid>()))
                             .Returns(
-                            new Func<Guid, User>((arg1) =>
+                            new Func<Guid, IQueryable<User>>((arg1) =>
                             {
                                 IQueryable<User> query = users.AsQueryable();
 
-                                return query.Where(c => c.Id == arg1).FirstOrDefault();
+                                return query.Where(c => c.Id == arg1);
                             }));
 
             mockUserRepository.Setup(x => x.GetAll(
@@ -33,7 +33,7 @@ namespace Phonebook.TestTools
                 It.IsAny<string>()))
                 .Returns(new Func<Expression<Func<User, bool>>,
                     Func<IQueryable<User>, IOrderedQueryable<User>>,
-                    string, IEnumerable<User>>((arg1, arg2, arg3) =>
+                    string, IQueryable<User>>((arg1, arg2, arg3) =>
                     {
                         IQueryable<User> query = users.AsQueryable();
 
@@ -44,13 +44,12 @@ namespace Phonebook.TestTools
 
                         if (arg2 != null)
                         {
-                            return arg2(query).ToList();
+                            return arg2(query);
                         }
                         else
                         {
-                            return query.ToList();
+                            return query;
                         }
-
                     }));
 
             return mockUserRepository;
@@ -63,11 +62,11 @@ namespace Phonebook.TestTools
             mockContactRepository.Setup(x => x.Get(
                 It.IsAny<Guid>()))
                 .Returns(
-                    new Func<Guid, Contact>((arg1) =>
+                    new Func<Guid, IQueryable<Contact>>((arg1) =>
                     {
                         IQueryable<Contact> query = contacts.AsQueryable();
 
-                        return query.Where(c => c.Id == arg1).FirstOrDefault();
+                        return query.Where(c => c.Id == arg1);
                     }));
 
             mockContactRepository.Setup(x => x.GetAll(
@@ -76,7 +75,7 @@ namespace Phonebook.TestTools
                 It.IsAny<string>()))
                 .Returns(new Func<Expression<Func<Contact, bool>>,
                     Func<IQueryable<Contact>, IOrderedQueryable<Contact>>,
-                    string, IEnumerable<Contact>>((arg1, arg2, arg3) =>
+                    string, IQueryable<Contact>>((arg1, arg2, arg3) =>
                     {
                         IQueryable<Contact> query = contacts.AsQueryable();
 
@@ -87,13 +86,12 @@ namespace Phonebook.TestTools
 
                         if (arg2 != null)
                         {
-                            return arg2(query).ToList();
+                            return arg2(query);
                         }
                         else
                         {
-                            return query.ToList();
+                            return query;
                         }
-
                     }));
 
             return mockContactRepository;
@@ -109,7 +107,7 @@ namespace Phonebook.TestTools
                 It.IsAny<string>()))
                 .Returns(new Func<Expression<Func<ContactNumber, bool>>,
                     Func<IQueryable<ContactNumber>, IOrderedQueryable<ContactNumber>>,
-                    string, IEnumerable<ContactNumber>>((arg1, arg2, arg3) =>
+                    string, IQueryable<ContactNumber>>((arg1, arg2, arg3) =>
                     {
                         IQueryable<ContactNumber> query = contactNumbers.AsQueryable();
 
@@ -120,13 +118,12 @@ namespace Phonebook.TestTools
 
                         if (arg2 != null)
                         {
-                            return arg2(query).ToList();
+                            return arg2(query);
                         }
                         else
                         {
-                            return query.ToList();
+                            return query;
                         }
-
                     }));
 
             return mockRepository;
@@ -136,16 +133,16 @@ namespace Phonebook.TestTools
         {
             var mockService = new Mock<IContactService>();
 
-            mockService.Setup(x => x.GetAll()).Returns(contacts);
+            mockService.Setup(x => x.GetAll()).Returns(contacts.AsQueryable());
 
             mockService.Setup(x => x.Get(
                 It.IsAny<Guid>()))
                 .Returns(
-                    new Func<Guid, Contact>((arg1) =>
+                    new Func<Guid, IQueryable<Contact>>((arg1) =>
                     {
                         IQueryable<Contact> query = contacts.AsQueryable();
 
-                        return query.Where(c => c.Id == arg1).FirstOrDefault();
+                        return query.Where(c => c.Id == arg1);
                     }));
 
             mockService.Setup(x => x.Create(
@@ -159,35 +156,21 @@ namespace Phonebook.TestTools
         {
             var mockService = new Mock<IUserService>();
 
-            mockService.Setup(x => x.GetAll()).Returns(users);
+            mockService.Setup(x => x.GetAll()).Returns(users.AsQueryable());
 
             mockService.Setup(x => x.Get(
                 It.IsAny<Guid>()))
                 .Returns(
-                    new Func<Guid, User>((arg1) =>
+                    new Func<Guid, IQueryable<User>>((arg1) =>
                     {
                         IQueryable<User> query = users.AsQueryable();
 
-                        return query.Where(c => c.Id == arg1).FirstOrDefault();
+                        return query.Where(c => c.Id == arg1);
                     }));
 
             mockService.Setup(x => x.Create(
                 It.IsAny<User>()))
                 .Returns((User e) => e.Id);
-
-            mockService.Setup(x => x.GetContacts(It.IsAny<Guid>()))
-                .Returns((Guid userGuid) =>
-                {
-                    IQueryable<Contact> query = contacts.AsQueryable();
-
-                    if (userGuid != null)
-                    {
-                        query = query.Where(c => c.UserId == userGuid);
-                    }
-
-                    return query.ToList();
-
-                });
 
             return mockService;
         }
@@ -196,16 +179,16 @@ namespace Phonebook.TestTools
         {
             var mockService = new Mock<IContactNumberService>();
 
-            mockService.Setup(x => x.GetAll()).Returns(contactNumbers);
+            mockService.Setup(x => x.GetAll()).Returns(contactNumbers.AsQueryable());
 
             mockService.Setup(x => x.Get(
                 It.IsAny<Guid>()))
                 .Returns(
-                    new Func<Guid, ContactNumber>((arg1) =>
+                    new Func<Guid, IQueryable<ContactNumber>>((arg1) =>
                     {
                         IQueryable<ContactNumber> query = contactNumbers.AsQueryable();
 
-                        return query.Where(c => c.Id == arg1).FirstOrDefault();
+                        return query.Where(c => c.Id == arg1);
                     }));
 
             mockService.Setup(x => x.Create(

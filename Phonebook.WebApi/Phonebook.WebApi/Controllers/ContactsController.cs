@@ -20,25 +20,18 @@ namespace Phonebook.WebApi.Controllers
 			_service = contactService;
 		}
 
+		[EnableQuery(PageSize = 10)]
 		[ScopeAuthorise("phonebookAPI.read")]
-		public IHttpActionResult Get()
+		public IQueryable<Contact> Get()
 		{
-			var result = new List<Contact>();
-			var items = _service.GetAll().ToList();
-
-			return Ok(items);
+			return _service.GetAll();
 		}
 
+		[EnableQuery]
 		[ScopeAuthorise("phonebookAPI.read")]
-		public IHttpActionResult Get([FromODataUri]Guid key)
+		public SingleResult<Contact> Get([FromODataUri]Guid key)
 		{
-			var item = _service.Get(key);
-			if (item == null)
-			{
-				return NotFound();
-			}
-
-			return Ok(item);
+			return SingleResult.Create(_service.Get(key));
 		}
 
 		[ScopeAuthorise("phonebookAPI.write")]
@@ -81,7 +74,7 @@ namespace Phonebook.WebApi.Controllers
 		[ScopeAuthorise("phonebookAPI.write")]
 		public IHttpActionResult Delete([FromODataUri] Guid key)
 		{
-			var contact = _service.Get(key);
+			var contact = _service.Get(key).FirstOrDefault();
 			if (contact == null)
 			{
 				return NotFound();
@@ -90,14 +83,11 @@ namespace Phonebook.WebApi.Controllers
 			return StatusCode(System.Net.HttpStatusCode.NoContent);
 		}
 
-		[ScopeAuthorise("phonebookAPI.read")]
-		[HttpGet]
-		[ODataRoute("Contacts({key})/Phonebook.GetContactNumbers")]
-		public IHttpActionResult GetContactNumbers([FromODataUri]Guid key)
+		[EnableQuery(PageSize = 10)]
+		public IQueryable<ContactNumber> GetContactNumbers([FromODataUri]Guid key)
 		{
-			var items = _service.GetContactNumbers(key).ToList();
-
-			return Ok(items);
+			return _service.GetAll().Where(u => u.Id == key).SelectMany(u => u.ContactNumbers);
 		}
+		
 	}
 }

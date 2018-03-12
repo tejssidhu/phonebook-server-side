@@ -222,6 +222,7 @@
     <Compile Include="DependencyResolution\StructureMapResolver.cs" />
     <Compile Include="Model\Ping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routing\MatchRoutingConventionService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

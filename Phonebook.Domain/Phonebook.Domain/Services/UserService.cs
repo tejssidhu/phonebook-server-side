@@ -24,19 +24,14 @@ namespace Phonebook.Domain.Services
         }
 
         #region Get methods
-        public IEnumerable<User> GetAll()
+        public IQueryable<User> GetAll()
         {
 			return _unitOfWork.UserRepository.GetAll();
         }
 
-        public User Get(Guid id)
+        public IQueryable<User> Get(Guid id)
         {
 			return _unitOfWork.UserRepository.Get(id);
-        }
-
-        public IEnumerable<Contact> GetContacts(Guid userId)
-        {
-            return _unitOfWork.ContactRepository.GetAll(x => x.UserId == userId);
         }
         #endregion
 

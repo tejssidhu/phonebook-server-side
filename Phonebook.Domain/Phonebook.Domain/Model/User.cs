@@ -18,14 +18,13 @@ namespace Phonebook.Domain.Model
         [DataMember(Name = "username")]
         public string Username { get; set; }
 		
-
 		//defined as virtual so that they can take advantage of certain Entity Framework functionality such as lazy loading
-		public virtual ICollection<Contact> PhoneBook { get; set; }
+		public virtual ICollection<Contact> Contacts { get; set; }
 
 		public User()
 		{
-			if (PhoneBook == null)
-				PhoneBook = new List<Contact>();
+			if (Contacts == null)
+				Contacts = new List<Contact>();
 		}
 
 		public override bool Equals(object obj)

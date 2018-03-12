@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Phonebook.Domain.Model
@@ -14,6 +15,7 @@ namespace Phonebook.Domain.Model
         [DataMember(Name = "id")]
         public Guid Id { get; set; }
 
+		[ForeignKey("User")]
         [Required]
         [DataMember(Name = "userId")]
         public Guid UserId { get; set; }
