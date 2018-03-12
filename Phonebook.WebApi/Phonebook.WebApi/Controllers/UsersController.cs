@@ -12,7 +12,7 @@ using System.Web.OData.Routing;
 
 namespace Phonebook.WebApi.Controllers
 {
-	[Authorize]
+	// [Authorize]
 	public class UsersController : ODataController
 	{
 		private readonly IUserService _service;
@@ -92,7 +92,7 @@ namespace Phonebook.WebApi.Controllers
 			return StatusCode(HttpStatusCode.NoContent);
 		}
 
-		[ScopeAuthorise("phonebookAPI.read")]
+		// [ScopeAuthorise("phonebookAPI.read")]
 		[HttpGet]
 		[ODataRoute("Users({key})/Phonebook.MyContacts")]
 		public IHttpActionResult MyContacts([FromODataUri]Guid key)

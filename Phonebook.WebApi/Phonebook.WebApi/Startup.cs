@@ -19,7 +19,7 @@ namespace Phonebook.WebApi
 			StructureMapConfig.RegisterResolver(config);
 
 			//TODO: make this more secure i.e. http://localhost:4200
-			var cors = new EnableCorsAttribute("*", "*", "*");
+			var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
 			config.EnableCors(cors);
 
 			var identityServerUrl = ConfigurationManager.AppSettings.Get("identityServerUrl");
