@@ -26,6 +26,7 @@ namespace Phonebook.WebApi.Controllers
 			return _service.GetAll();
 		}
 
+		[EnableQuery]
 		[ScopeAuthorise("phonebookAPI.read")]
 		public SingleResult<ContactNumber> Get([FromODataUri]Guid key)
 		{
