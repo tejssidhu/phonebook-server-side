@@ -1,0 +1,12 @@
+C:\GitHub\phonebook-server-side\Phonebook.Domain\Phonebook.Domain\bin\Debug\Phonebook.Domain.dll
+C:\GitHub\phonebook-server-side\Phonebook.Domain\Phonebook.Domain\bin\Debug\Phonebook.Domain.pdb
+C:\GitHub\phonebook-server-side\Phonebook.Domain\Phonebook.Domain\obj\Debug\Phonebook.Domain.csproj.CoreCompileInputs.cache
+C:\GitHub\phonebook-server-side\Phonebook.Domain\Phonebook.Domain\obj\Debug\Phonebook.Domain.dll
+C:\GitHub\phonebook-server-side\Phonebook.Domain\Phonebook.Domain\obj\Debug\Phonebook.Domain.pdb
+C:\GitHub\phonebook-server-side\Phonebook.Domain\Phonebook.Domain\obj\Debug\Phonebook.Domain.csprojResolveAssemblyReference.cache
+C:\GitHub\phonebook-server-side\src\Phonebook.Domain\bin\Debug\Phonebook.Domain.dll
+C:\GitHub\phonebook-server-side\src\Phonebook.Domain\bin\Debug\Phonebook.Domain.pdb
+C:\GitHub\phonebook-server-side\src\Phonebook.Domain\obj\Debug\Phonebook.Domain.csprojResolveAssemblyReference.cache
+C:\GitHub\phonebook-server-side\src\Phonebook.Domain\obj\Debug\Phonebook.Domain.csproj.CoreCompileInputs.cache
+C:\GitHub\phonebook-server-side\src\Phonebook.Domain\obj\Debug\Phonebook.Domain.dll
+C:\GitHub\phonebook-server-side\src\Phonebook.Domain\obj\Debug\Phonebook.Domain.pdb

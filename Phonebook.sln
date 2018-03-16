@@ -3,26 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Domain", "Phonebook.Domain\Phonebook.Domain\Phonebook.Domain.csproj", "{8DB600D8-61B6-44D4-8D17-B3C07AAE6D5F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Domain", "src\Phonebook.Domain\Phonebook.Domain.csproj", "{8DB600D8-61B6-44D4-8D17-B3C07AAE6D5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Data", "Phonebook.Data\Phonebook.Data\Phonebook.Data.csproj", "{482A85A5-2D8C-49FE-BEF0-1A986C03E076}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Data", "src\Phonebook.Data\Phonebook.Data.csproj", "{482A85A5-2D8C-49FE-BEF0-1A986C03E076}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{464822A2-A037-4073-ADF9-D51F3B2F05D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Domain.Tests", "Phonebook.Domain\Phonebook.Domain.Tests\Phonebook.Domain.Tests.csproj", "{B03A3A04-0332-4016-AF84-5079238B4B6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Domain.Tests", "tests\Phonebook.Domain.Tests\Phonebook.Domain.Tests.csproj", "{B03A3A04-0332-4016-AF84-5079238B4B6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Data.Tests", "Phonebook.Data\Phonebook.Data.Tests\Phonebook.Data.Tests.csproj", "{8FC528D9-FEAA-4097-AE3B-B9300EFD14C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.Data.Tests", "tests\Phonebook.Data.Tests\Phonebook.Data.Tests.csproj", "{8FC528D9-FEAA-4097-AE3B-B9300EFD14C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.TestTools", "Phonebook.TestTools\Phonebook.TestTools\Phonebook.TestTools.csproj", "{BD788B11-ACE9-4BC5-80BD-88680EE2C224}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.TestTools", "tests\Phonebook.TestTools\Phonebook.TestTools.csproj", "{BD788B11-ACE9-4BC5-80BD-88680EE2C224}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C0B43B28-4F47-47D1-A99B-838198FDAF75}"
 	ProjectSection(SolutionItems) = preProject
 		XmlReplaceAttributeValue.ps1 = XmlReplaceAttributeValue.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.WebApi.Tests", "Phonebook.WebApi\Phonebook.WebApi.Tests\Phonebook.WebApi.Tests.csproj", "{140551CE-6337-4009-9B36-B60FB0FF1976}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.WebApi.Tests", "tests\Phonebook.WebApi.Tests\Phonebook.WebApi.Tests.csproj", "{140551CE-6337-4009-9B36-B60FB0FF1976}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.WebApi", "Phonebook.WebApi\Phonebook.WebApi\Phonebook.WebApi.csproj", "{A437A48B-7C76-4BCD-AD5D-4E5020119EEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.WebApi", "src\Phonebook.WebApi\Phonebook.WebApi.csproj", "{A437A48B-7C76-4BCD-AD5D-4E5020119EEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<parameters>
-  <parameter name="Identity Server Endpoint"
-             description="Specify the endpoint of the identity server"
-             defaultValue="https://localhost:44301">
-    <parameterEntry kind="XmlFile" scope="Web.config" match="/configuration/appSettings/add[@key='identityServerUrl']/@value" />
-  </parameter>
-</parameters>
