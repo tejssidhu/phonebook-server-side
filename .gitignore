@@ -41,3 +41,8 @@
 /Phonebook.Domain/Phonebook.Domain/bin/Release
 /Phonebook.Data/Phonebook.Data/bin/Release
 /Phonebook.WebApi/Phonebook.WebApi/Properties/PublishProfiles
+/Phonebook.TestTools/Phonebook.TestTools.Data/obj/Debug
+/Phonebook.WebApi.Integration.Tests/obj/Debug
+/Tester/bin/Debug
+/Tester/obj/Debug
+/Phonebook.TestTools/Phonebook.TestTools.Data/bin/Debug

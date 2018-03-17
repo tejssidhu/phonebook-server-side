@@ -24,6 +24,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.WebApi.Tests", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.WebApi", "Phonebook.WebApi\Phonebook.WebApi\Phonebook.WebApi.csproj", "{A437A48B-7C76-4BCD-AD5D-4E5020119EEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.TestTools.Data", "Phonebook.TestTools\Phonebook.TestTools.Data\Phonebook.TestTools.Data.csproj", "{D00ADCBC-5549-437C-A47E-CE45AA455460}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{7C38D50B-C9B5-47CC-97AE-53A7F7B62592}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +62,14 @@ Global
 		{A437A48B-7C76-4BCD-AD5D-4E5020119EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A437A48B-7C76-4BCD-AD5D-4E5020119EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A437A48B-7C76-4BCD-AD5D-4E5020119EEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D00ADCBC-5549-437C-A47E-CE45AA455460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D00ADCBC-5549-437C-A47E-CE45AA455460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D00ADCBC-5549-437C-A47E-CE45AA455460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D00ADCBC-5549-437C-A47E-CE45AA455460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C38D50B-C9B5-47CC-97AE-53A7F7B62592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C38D50B-C9B5-47CC-97AE-53A7F7B62592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C38D50B-C9B5-47CC-97AE-53A7F7B62592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C38D50B-C9B5-47CC-97AE-53A7F7B62592}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +79,8 @@ Global
 		{8FC528D9-FEAA-4097-AE3B-B9300EFD14C8} = {464822A2-A037-4073-ADF9-D51F3B2F05D8}
 		{BD788B11-ACE9-4BC5-80BD-88680EE2C224} = {464822A2-A037-4073-ADF9-D51F3B2F05D8}
 		{140551CE-6337-4009-9B36-B60FB0FF1976} = {464822A2-A037-4073-ADF9-D51F3B2F05D8}
+		{D00ADCBC-5549-437C-A47E-CE45AA455460} = {464822A2-A037-4073-ADF9-D51F3B2F05D8}
+		{7C38D50B-C9B5-47CC-97AE-53A7F7B62592} = {464822A2-A037-4073-ADF9-D51F3B2F05D8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05B9607A-A78B-424A-BD36-6B71BB807A6B}
