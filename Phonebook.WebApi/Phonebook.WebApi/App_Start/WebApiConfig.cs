@@ -20,6 +20,9 @@ namespace Phonebook.WebApi.App_Start
 			builder.EntitySet<ContactNumber>("ContactNumbers");
 			builder.EntitySet<Contact>("Contacts");
 			builder.EntitySet<User>("Users");
+			builder.EntitySet<SampleAddress>("SampleAddresses");
+			builder.EntitySet<SampleContact>("SampleContacts");
+			builder.EntitySet<SampleUser>("SampleUsers");
 			builder.EntitySet<Ping>("Ping");
 
 			var model = builder.GetEdmModel();
@@ -39,6 +42,7 @@ namespace Phonebook.WebApi.App_Start
 		{
 			AddContactsNavigation(model);
 			AddContactNumbersNavigation(model);
+			AddSampleContactsNavigation(model);
 		}
 
 		private static void AddContactsNavigation(IEdmModel model)
@@ -49,6 +53,16 @@ namespace Phonebook.WebApi.App_Start
 			var contactType = (EdmEntityType)model.FindDeclaredType("Phonebook.Domain.Model.Contact");
 			AddOneToManyNavigation("Contacts", users, contacts, userType, contactType);
 			AddManyToOneNavigation("User", users, contacts, userType, contactType);
+		}
+
+		private static void AddSampleContactsNavigation(IEdmModel model)
+		{
+			var users = (EdmEntitySet)model.EntityContainer.FindEntitySet("SampleUsers");
+			var contacts = (EdmEntitySet)model.EntityContainer.FindEntitySet("SampleContacts");
+			var userType = (EdmEntityType)model.FindDeclaredType("Phonebook.Domain.Model.SampleUser");
+			var contactType = (EdmEntityType)model.FindDeclaredType("Phonebook.Domain.Model.SampleContact");
+			AddOneToManyNavigation("SampleContacts", users, contacts, userType, contactType);
+			AddManyToOneNavigation("SampleUser", users, contacts, userType, contactType);
 		}
 
 		private static void AddContactNumbersNavigation(IEdmModel model)

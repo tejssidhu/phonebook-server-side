@@ -9,6 +9,9 @@ namespace Phonebook.Data.Context
 		public virtual DbSet<User> Users { get; set; }
 		public virtual DbSet<Contact> Contacts { get; set; }
 		public virtual DbSet<ContactNumber> ContactNumbers { get; set; }
+		public virtual DbSet<SampleUser> SampleUsers { get; set; }
+		public virtual DbSet<SampleContact> SampleContacts { get; set; }
+		public virtual DbSet<SampleAddress> SampleAddress { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{

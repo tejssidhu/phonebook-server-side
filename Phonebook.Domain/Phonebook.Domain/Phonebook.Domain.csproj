@@ -51,15 +51,24 @@
     <Compile Include="Interfaces\Repositories\IGenericRepository.cs" />
     <Compile Include="Interfaces\Services\IContactNumberService.cs" />
     <Compile Include="Interfaces\Services\IContactService.cs" />
+    <Compile Include="Interfaces\Services\ISampleAddressService.cs" />
+    <Compile Include="Interfaces\Services\ISampleContactService.cs" />
     <Compile Include="Interfaces\Services\IService.cs" />
+    <Compile Include="Interfaces\Services\ISampleUserService.cs" />
     <Compile Include="Interfaces\Services\IUserService.cs" />
     <Compile Include="Interfaces\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Model\ContactNumber.cs" />
+    <Compile Include="Model\SampleAddress.cs" />
+    <Compile Include="Model\SampleContact.cs" />
+    <Compile Include="Model\SampleUser.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ContactNumberService.cs" />
     <Compile Include="Services\ContactService.cs" />
+    <Compile Include="Services\SampleAddressService.cs" />
+    <Compile Include="Services\SampleContactService.cs" />
+    <Compile Include="Services\SampleUserService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Phonebook.WebApi.Integration.Tests
+namespace Phonebook.TestTools.Integration.Interfaces
 {
-	class Program
+	interface IRequestMethod
 	{
-		static void Main(string[] args)
-		{
-		}
 	}
 }

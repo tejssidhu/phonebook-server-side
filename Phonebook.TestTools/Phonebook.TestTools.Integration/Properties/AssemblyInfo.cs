@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Phonebook.WebApi.Integration.Tests")]
+[assembly: AssemblyTitle("Phonebook.TestTools.Integration")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Phonebook.WebApi.Integration.Tests")]
+[assembly: AssemblyProduct("Phonebook.TestTools.Integration")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0073c4d3-baa8-4c2c-9b94-8bdc0fc164a7")]
+[assembly: Guid("2d1d21ae-b50c-4107-99a5-73522b07a932")]
 
 // Version information for an assembly consists of the following four values:
 //

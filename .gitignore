@@ -46,3 +46,7 @@
 /Tester/bin/Debug
 /Tester/obj/Debug
 /Phonebook.TestTools/Phonebook.TestTools.Data/bin/Debug
+/Phonebook.TestTools/Phonebook.TestTools.Integration/obj/Debug
+/Phonebook.WebApi/Phonebook.WebApi.Integration.Tests/obj/Debug
+/Phonebook.WebApi/Phonebook.WebApi.Integration.Tests/bin/Debug
+/Phonebook.TestTools/Phonebook.TestTools.Integration/bin/Debug

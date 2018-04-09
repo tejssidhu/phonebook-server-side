@@ -46,12 +46,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phonebook.TestTools\Phonebook.TestTools.Data\Phonebook.TestTools.Data.csproj">
       <Project>{d00adcbc-5549-437c-a47e-ce45aa455460}</Project>
       <Name>Phonebook.TestTools.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Phonebook.TestTools\Phonebook.TestTools.Integration\Phonebook.TestTools.Integration.csproj">
+      <Project>{2d1d21ae-b50c-4107-99a5-73522b07a932}</Project>
+      <Name>Phonebook.TestTools.Integration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

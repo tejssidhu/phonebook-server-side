@@ -7,6 +7,9 @@ namespace Phonebook.Data.Context
 {
 	public interface IPhonebookContext: IDisposable
 	{
+		DbSet<SampleAddress> SampleAddress { get; set; }
+		DbSet<SampleContact> SampleContacts { get; set; }
+		DbSet<SampleUser> SampleUsers { get; set; }
 		DbSet<ContactNumber> ContactNumbers { get; set; }
 		DbSet<Contact> Contacts { get; set; }
 		DbSet<User> Users { get; set; }
