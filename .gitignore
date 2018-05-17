@@ -50,3 +50,6 @@
 /Phonebook.WebApi/Phonebook.WebApi.Integration.Tests/obj/Debug
 /Phonebook.WebApi/Phonebook.WebApi.Integration.Tests/bin/Debug
 /Phonebook.TestTools/Phonebook.TestTools.Integration/bin/Debug
+/PrimeData/bin/Debug
+/PrimeData/obj/Debug
+/PrimeData/PrimeData.sqlproj.user

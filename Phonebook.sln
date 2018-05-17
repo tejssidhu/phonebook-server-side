@@ -30,6 +30,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestTools", "TestTools", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phonebook.TestTools.Integration", "Phonebook.TestTools\Phonebook.TestTools.Integration\Phonebook.TestTools.Integration.csproj", "{2D1D21AE-B50C-4107-99A5-73522B07A932}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{26FA02AE-7F82-4066-B806-2AC5F6FA7DF1}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PrimeData", "PrimeData\PrimeData.sqlproj", "{FFCE7B53-8121-4DE6-8887-C5B200E5FAD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +76,10 @@ Global
 		{2D1D21AE-B50C-4107-99A5-73522B07A932}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D1D21AE-B50C-4107-99A5-73522B07A932}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D1D21AE-B50C-4107-99A5-73522B07A932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCE7B53-8121-4DE6-8887-C5B200E5FAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCE7B53-8121-4DE6-8887-C5B200E5FAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCE7B53-8121-4DE6-8887-C5B200E5FAD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCE7B53-8121-4DE6-8887-C5B200E5FAD2}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,7 @@ Global
 		{140551CE-6337-4009-9B36-B60FB0FF1976} = {464822A2-A037-4073-ADF9-D51F3B2F05D8}
 		{D00ADCBC-5549-437C-A47E-CE45AA455460} = {D03F2C85-5104-45C1-9D3D-F422B7295AF0}
 		{2D1D21AE-B50C-4107-99A5-73522B07A932} = {D03F2C85-5104-45C1-9D3D-F422B7295AF0}
+		{FFCE7B53-8121-4DE6-8887-C5B200E5FAD2} = {26FA02AE-7F82-4066-B806-2AC5F6FA7DF1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05B9607A-A78B-424A-BD36-6B71BB807A6B}
