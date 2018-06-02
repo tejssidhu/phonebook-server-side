@@ -214,12 +214,9 @@
     <Compile Include="App_Start\StructureMapConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\ScopeAuthoriseAttribute.cs" />
-    <Compile Include="Controllers\SampleContactsController.cs" />
-    <Compile Include="Controllers\SampleAddressesController.cs" />
     <Compile Include="Controllers\ContactNumbersController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\PingController.cs" />
-    <Compile Include="Controllers\SampleUsersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapResolver.cs" />

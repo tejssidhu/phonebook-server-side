@@ -20,9 +20,6 @@ namespace Phonebook.WebApi.App_Start
 			builder.EntitySet<ContactNumber>("ContactNumbers");
 			builder.EntitySet<Contact>("Contacts");
 			builder.EntitySet<User>("Users");
-			builder.EntitySet<SampleAddress>("SampleAddresses");
-			builder.EntitySet<SampleContact>("SampleContacts");
-			builder.EntitySet<SampleUser>("SampleUsers");
 			builder.EntitySet<Ping>("Ping");
 
 			var model = builder.GetEdmModel();
